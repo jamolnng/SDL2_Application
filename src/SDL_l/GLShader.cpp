@@ -57,7 +57,7 @@ GLuint GLShader::getFragmentProgram(void)
 bool GLShader::registerUniform(const char* name)
 {
 	map<const char*, GLuint>::iterator it = uniforms.find(name);
-	if (it != uniforms.end()) return false;
+	//if (it == uniforms.end()) return false;
 	GLuint id = glGetUniformLocation(value, name);
 	if (id != 0)
 	{
@@ -70,7 +70,7 @@ bool GLShader::registerUniform(const char* name)
 bool GLShader::registerAttrib(const char* name)
 {
 	map<const char*, GLuint>::iterator it = attribs.find(name);
-	if (it != uniforms.end()) return false;
+	//if (it == uniforms.end()) return false;
 	GLuint id = glGetAttribLocation(value, name);
 	if (id != 0)
 	{
