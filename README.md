@@ -96,12 +96,16 @@ void GameActivity::dispose(void)
 
 void GameActivity::onEvent(SDL_Event& sdl_event)
 {
+	if (sdl_event.type == SDL_KEYDOWN && sdl_event.key.keysym.sym == SDLK_ESCAPE)
+	{
+		getApp()->end();
+	}
 }
 
 //Only needs to be overriden if you explicitly say to use OpenGL otherwise you do not need the function
 bool GameActivity::initGL(void)
 {
-  int w = getApp()->getWindow()->getWidth();
+	int w = getApp()->getWindow()->getWidth();
 	int h = getApp()->getWindow()->getHeight();
 
 	glShadeModel(GL_SMOOTH);
