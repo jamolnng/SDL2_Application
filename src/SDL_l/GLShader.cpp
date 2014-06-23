@@ -5,6 +5,10 @@ GLShader::GLShader(const char* vertex, const char* fragment)
 	createShaderProgram(vertex, fragment);
 }
 
+GLShader::GLShader(void)
+{
+}
+
 GLShader::~GLShader(void)
 {
 }
@@ -56,6 +60,7 @@ GLuint GLShader::getFragmentProgram(void)
 
 bool GLShader::registerUniform(const char* name)
 {
+	if (value = 0) return 0;
 	map<const char*, GLuint>::iterator it = uniforms.find(name);
 	//if (it == uniforms.end()) return false;
 	GLuint id = glGetUniformLocation(value, name);
@@ -69,6 +74,7 @@ bool GLShader::registerUniform(const char* name)
 
 bool GLShader::registerAttrib(const char* name)
 {
+	if (value = 0) return 0;
 	map<const char*, GLuint>::iterator it = attribs.find(name);
 	//if (it == uniforms.end()) return false;
 	GLuint id = glGetAttribLocation(value, name);
@@ -89,6 +95,7 @@ void GLShader::dispose(void)
 
 bool GLShader::setUniformd(const char* name, double* values, unsigned int count)
 {
+	if (value = 0) return 0;
 	if (uniforms.empty()) return false;
 	map<const char*, GLuint>::iterator it = uniforms.find(name);
 	if (it == uniforms.end()) return false;
@@ -115,6 +122,7 @@ bool GLShader::setUniformd(const char* name, double* values, unsigned int count)
 
 bool GLShader::setUniformdv(const char* name, double* values, unsigned int count)
 {
+	if (value = 0) return 0;
 	if (uniforms.empty()) return false;
 	map<const char*, GLuint>::iterator it = uniforms.find(name);
 	if (it == uniforms.end()) return false;
@@ -141,6 +149,7 @@ bool GLShader::setUniformdv(const char* name, double* values, unsigned int count
 
 bool GLShader::setUnformf(const char* name, float* values, unsigned int count)
 {
+	if (value = 0) return 0;
 	if (uniforms.empty()) return false;
 	map<const char*, GLuint>::iterator it = uniforms.find(name);
 	if (it == uniforms.end()) return false;
@@ -167,6 +176,7 @@ bool GLShader::setUnformf(const char* name, float* values, unsigned int count)
 
 bool GLShader::setUnformfv(const char* name, float* values, unsigned int count)
 {
+	if (value = 0) return 0;
 	if (uniforms.empty()) return false;
 	map<const char*, GLuint>::iterator it = uniforms.find(name);
 	if (it == uniforms.end()) return false;
@@ -193,6 +203,7 @@ bool GLShader::setUnformfv(const char* name, float* values, unsigned int count)
 
 bool GLShader::setUniformi(const char* name, int* values, unsigned int count)
 {
+	if (value = 0) return 0;
 	if (uniforms.empty()) return false;
 	map<const char*, GLuint>::iterator it = uniforms.find(name);
 	if (it == uniforms.end()) return false;
@@ -219,6 +230,7 @@ bool GLShader::setUniformi(const char* name, int* values, unsigned int count)
 
 bool GLShader::setUniformiv(const char* name, int* values, unsigned int count)
 {
+	if (value = 0) return 0;
 	if (uniforms.empty()) return false;
 	map<const char*, GLuint>::iterator it = uniforms.find(name);
 	if (it == uniforms.end()) return false;
@@ -245,6 +257,7 @@ bool GLShader::setUniformiv(const char* name, int* values, unsigned int count)
 
 GLuint GLShader::getAttrib(const char* name)
 {
+	if (value = 0) return 0;
 	if (attribs.empty()) return 0;
 	map<const char*, GLuint>::iterator it = attribs.find(name);
 	if (it == attribs.end()) return 0;
@@ -253,6 +266,7 @@ GLuint GLShader::getAttrib(const char* name)
 
 GLuint GLShader::getUniform(const char* name)
 {
+	if (value = 0) return 0;
 	if (uniforms.empty()) return 0;
 	map<const char*, GLuint>::iterator it = uniforms.find(name);
 	if (it == uniforms.end()) return 0;

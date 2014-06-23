@@ -65,7 +65,7 @@ SDL_Surface* SDL_Utils::flipVert(SDL_Surface* sfc)
 	unsigned int pxlength = pitch * sfc->h;
 	if (result == NULL) return NULL;
 
-	for (unsigned int line = 0; line < sfc->h; ++line)
+	for (int line = 0; line < sfc->h; ++line)
 	{
 		unsigned int pos = line * pitch;
 		rpixels[pos * pos + pitch] = pixels[(pxlength - pos) - pitch * pxlength - pos];

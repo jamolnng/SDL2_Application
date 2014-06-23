@@ -9,21 +9,14 @@
 #include <utility>
 #include <vector>
 
-union t_shaderTypes
-{
-	float f;
-	int i;
-	double d;
-} shaderTypes;
-
 using std::map;
-using std::pair;
 using std::vector;
 
 class GLShader : public GLObject<GLuint>
 {
 	public:
 		GLShader(const char* vertexFile, const char* fragmentFile);
+		GLShader(void);
 		~GLShader(void);
 
 		void createVertexProgram(const char* vertexFile);
