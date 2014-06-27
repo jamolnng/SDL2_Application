@@ -127,5 +127,5 @@ GLuint GLFrameBufferObject::getHeight(void)
 
 void GLFrameBufferObject::dispose(void)
 {
-	glDeleteFramebuffers(1, &value);
+	glDeleteFramebuffersEXT(1, &value);
 }
