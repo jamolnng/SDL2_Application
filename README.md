@@ -11,6 +11,12 @@ Some things this library includes:
 - Full classes for SDL textures
 - A interface class to run your game through (SDL_Activity)
 
+Here is a
+
+full working example application that uses Box2D https://github.com/jamolnng/Open-Source/tree/master/SDL_App_Box2D_Test
+
+and an
+
 Example of a basic application:
 
 main.cpp
