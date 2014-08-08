@@ -71,6 +71,9 @@ class GameActivity : public SDL_Activity
 GameActivity.cpp
 ```cpp
 #include "GameActivity.h"
+#include <SDL.h>
+#include <SDL_opengl.h>
+#include <GL\GLU.h>
 
 GameActivity::GameActivity(void)
 {
