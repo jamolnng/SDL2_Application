@@ -52,6 +52,8 @@ class SDL_Activity
 		virtual bool initGL(void);
 
 		SDL_Application* getApp(void);
+
+		//NO TOUCHY!
 		void setApp(SDL_Application* app);
 
 	private:

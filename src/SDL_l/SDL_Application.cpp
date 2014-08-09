@@ -6,12 +6,10 @@
 #include <stdio.h>
 #include <string>
 
-int SCREEN_WIDTH = 854;
-int SCREEN_HEIGHT = 500;
-
 SDL_Application::SDL_Application(SDL_Activity* sdl_activity, bool useOpenGL, unsigned int openGLMajor, unsigned int openGLMinor) : activity(sdl_activity), window(useOpenGL, openGLMajor, openGLMinor), windowSurface(NULL), exitCode(-1), running(false), exit(false), windowCreated(false)
 {
 	activity->setApp(this);
+	initialized = false;
 }
 
 SDL_Application::~SDL_Application(void)
@@ -60,8 +58,11 @@ bool SDL_Application::createWindow(char* title, unsigned int width, unsigned int
 	int imgFlags = IMG_INIT_PNG;
 	if (!(IMG_Init(imgFlags) & imgFlags)) return 0;
 	window.setIcon(iconFile);
-	if (!window.isUsingOpenGL()) SDL_SetRenderTarget(renderer, NULL);
-	if (!window.isUsingOpenGL()) SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+	if (!window.isUsingOpenGL())
+	{
+		SDL_SetRenderTarget(renderer, NULL);
+		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+	}
 	activity->init();
 
 	return 1;
@@ -129,6 +130,11 @@ void SDL_Application::run(void)
 			activity->updateFixed();
 			updateNext += updateRate;
 		}
+
+		if (updates == 5 && (updateTime - updateNext) >= updateRate)
+		{
+			printf("The Program Can't Keep Up\n");
+		}
 		activity->updateDynamic(deltaTime);
 
 		if (window.isUsingOpenGL())
@@ -175,4 +181,9 @@ void SDL_Application::run(void)
 unsigned int SDL_Application::getFPS(void)
 {
 	return _fps;
+}
+
+bool SDL_Application::isInitialized(void)
+{
+	return initialized;
 }
