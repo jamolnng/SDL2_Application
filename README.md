@@ -1,7 +1,7 @@
 SDL2_Application
 ================
 
-SDL2 Application is a small, easy to use, library for SDL2, SDL2_image, and glew. The library focuses mostly around OpenGL.
+SDL2 Application is a small, easy to use, library for SDL2, SDL2_image, and a gl3w-like. The library focuses mostly around OpenGL.
 
 Some things this library includes:
 - Window handling and the option to use OpenGL rendering over SDL rendering
