@@ -1,4 +1,4 @@
-#include <GL\glew.h>
+#include "gl3w.h"
 #include "SDL_Application_Window.h"
 #include <SDL_image.h>
 #include "SDL_Activity.h"
@@ -50,8 +50,7 @@ bool SDL_Application_Window::initWithOpenGL(SDL_Activity* activity, Uint32 flags
 		gl_context = SDL_GL_CreateContext(sdl_window);
 		if (gl_context != 0)
 		{
-			glewExperimental = GL_TRUE;
-			glewInit();
+			glcorearbwInit();
 			if (!(SDL_GL_SetSwapInterval(1) < 0))
 			{
 				if (activity->initGL())
