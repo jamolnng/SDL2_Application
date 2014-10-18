@@ -1,10 +1,10 @@
 #pragma once
 
+#include "GLObject.h"
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include <SDL_image.h>
 #include "SDL_Application.h"
-#include "GLObject.h"
 
 class GLTexture : public GLObject<GLuint>
 {

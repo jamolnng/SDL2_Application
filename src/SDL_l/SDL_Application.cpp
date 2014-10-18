@@ -1,4 +1,4 @@
-#include "gl3w.h"
+#include <GL\glew.h>
 #include "SDL_Application.h"
 #include "SDL_Activity.h"
 #include "LTexture.h"

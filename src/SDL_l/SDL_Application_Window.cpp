@@ -1,7 +1,8 @@
-#include "gl3w.h"
+#include <GL\glew.h>
 #include "SDL_Application_Window.h"
 #include <SDL_image.h>
 #include "SDL_Activity.h"
+#include <iostream>
 
 SDL_Application_Window::SDL_Application_Window(bool useOpenGL, unsigned int openGLMajor, unsigned int openGLMinor)
 {
@@ -50,7 +51,6 @@ bool SDL_Application_Window::initWithOpenGL(SDL_Activity* activity, Uint32 flags
 		gl_context = SDL_GL_CreateContext(sdl_window);
 		if (gl_context != 0)
 		{
-			glcorearbwInit();
 			if (!(SDL_GL_SetSwapInterval(1) < 0))
 			{
 				if (activity->initGL())
@@ -232,6 +232,19 @@ bool SDL_Application_Window::setFullscreen(bool fullscreenFlag)
 	}
 	else
 	{
+
+		SDL_DisplayMode current;
+		for (int j = 0; j < SDL_GetNumVideoDisplays(); ++j)
+		{
+			int should_be_zero = SDL_GetCurrentDisplayMode(j, &current);
+			if (should_be_zero != 0);
+			else
+			{
+				width = current.w;
+				height = current.h;
+				std::cout << width << "x" << height << std::endl;
+			}
+		}
 		fullScreen = true;
 		minimized = false;
 		i = SDL_SetWindowFullscreen(sdl_window, SDL_TRUE);
