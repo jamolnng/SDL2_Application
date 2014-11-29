@@ -2,7 +2,6 @@
 
 #include <SDL.h>
 #include "glm\glm.hpp"
-#include "SDL_mouse.h"
 
 class Mouse
 {
@@ -20,15 +19,15 @@ class Mouse
 		bool dragging(void);
 		int scrollDirection(void);
 		int scroll(void);
-		int deltaX(void);
-		int deltaY(void);
-		int x(void);
-		int y(void);
+		double deltaX(void);
+		double deltaY(void);
+		double x(void);
+		double y(void);
 		glm::vec2 pos(void);
 		glm::vec2 delta(void);
 
 	private:
-		bool lmb, mmb, rmb, drag, plmb, pmmb, prmb;
+		bool lmb, mmb, rmb, drag, plmb, pmmb, prmb, locked;
 		int lastScroll, totalScroll;
 		unsigned int scrolldx;
 		glm::vec2 mpos, mdelta;

@@ -71,7 +71,6 @@ bool SDL_Application::createWindow(char* title, unsigned int width, unsigned int
 		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	}
 	activity->init();
-
 	return 1;
 }
 
@@ -136,9 +135,7 @@ void SDL_Application::run(void)
 		{
 			if (e.type == SDL_QUIT) end();
 			window.handleEvent(e);
-			activity->getMouse().onEvent(e);
-			activity->getKeyboard().onEvent(e);
-			activity->onEvent(e);
+			activity->preEvent(e);
 		}
 
 		int updates = 0;
@@ -190,11 +187,10 @@ void SDL_Application::run(void)
 		{
 			SDL_RenderPresent(renderer);
 		}
+		activity->clear();
 
 		deltaTime = SDL_GetTicks() - nextTime;
 		nextTime = SDL_GetTicks();
-		activity->getMouse().clear();
-		activity->getKeyboard().clear();
 	}
 	activity->dispose();
 	exit = true;

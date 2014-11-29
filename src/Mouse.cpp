@@ -1,5 +1,4 @@
 #include "Mouse.h"
-#include <iostream>
 
 using namespace std;
 
@@ -30,17 +29,17 @@ void Mouse::onEvent(SDL_Event& sdl_event)
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 			{
-				if ((int)sdl_event.button.button == SDL_BUTTON_LEFT)
+				if (int(sdl_event.button.button) == int(SDL_BUTTON_LEFT))
 				{
 					lmb = true;
 					plmb = true;
 				}
-				if ((int)sdl_event.button.button == SDL_BUTTON_MIDDLE)
+				if (int(sdl_event.button.button) == int(SDL_BUTTON_MIDDLE))
 				{
 					mmb = true;
 					pmmb = true;
 				}
-				if ((int)sdl_event.button.button == SDL_BUTTON_RIGHT)
+				if (int(sdl_event.button.button) == int(SDL_BUTTON_RIGHT))
 				{
 					rmb = true;
 					prmb = true;
@@ -48,22 +47,24 @@ void Mouse::onEvent(SDL_Event& sdl_event)
 			}
 			break;
 		case SDL_MOUSEBUTTONUP:
-			if ((int)sdl_event.button.button == SDL_BUTTON_LEFT)
 			{
-				lmb = false;
-				plmb = false;
+				if (int(sdl_event.button.button) == int(SDL_BUTTON_LEFT))
+				{
+					lmb = false;
+					plmb = false;
+				}
+				if (int(sdl_event.button.button) == int(SDL_BUTTON_MIDDLE))
+				{
+					mmb = false;
+					pmmb = false;
+				}
+				if (int(sdl_event.button.button) == int(SDL_BUTTON_RIGHT))
+				{
+					rmb = false;
+					prmb = false;
+				}
+				drag = false;
 			}
-			if ((int)sdl_event.button.button == SDL_BUTTON_MIDDLE)
-			{
-				mmb = false;
-				pmmb = false;
-			}
-			if ((int)sdl_event.button.button == SDL_BUTTON_RIGHT)
-			{
-				rmb = false;
-				prmb = false;
-			}
-			drag = false;
 			break;
 		case SDL_MOUSEMOTION:
 			mdelta = glm::vec2(sdl_event.motion.x - mpos.x, sdl_event.motion.y - mpos.y);
@@ -82,10 +83,12 @@ void Mouse::clear(void)
 {
 	lastScroll = 0;
 	plmb = pmmb = prmb = false;
+	mdelta = glm::vec2(0, 0);
 }
 
 void Mouse::lock(bool locked)
 {
+	this->locked = locked;
 	SDL_SetRelativeMouseMode(locked ? SDL_TRUE : SDL_FALSE);
 }
 
@@ -95,13 +98,10 @@ bool Mouse::down(unsigned int button)
 	{
 		case SDL_BUTTON_LEFT:
 			return lmb;
-			break;
 		case SDL_BUTTON_MIDDLE:
 			return mmb;
-			break;
 		case SDL_BUTTON_RIGHT:
 			return rmb;
-			break;
 		default:
 			return false;
 	}
@@ -113,13 +113,10 @@ bool Mouse::clicked(unsigned int button)
 	{
 		case SDL_BUTTON_LEFT:
 			return plmb;
-			break;
 		case SDL_BUTTON_MIDDLE:
 			return pmmb;
-			break;
 		case SDL_BUTTON_RIGHT:
 			return prmb;
-			break;
 		default:
 			return false;
 	}
@@ -141,24 +138,24 @@ int Mouse::scroll(void)
 	return totalScroll;
 }
 
-int Mouse::deltaX(void)
+double Mouse::deltaX(void)
 {
-	return (int)mdelta.x;
+	return (double)mdelta.x;
 }
 
-int Mouse::deltaY(void)
+double Mouse::deltaY(void)
 {
-	return (int)mdelta.y;
+	return (double)mdelta.y;
 }
 
-int Mouse::x(void)
+double Mouse::x(void)
 {
-	return (int)mpos.x;
+	return (double)mpos.x;
 }
 
-int Mouse::y(void)
+double Mouse::y(void)
 {
-	return (int)mpos.y;
+	return (double)mpos.y;
 }
 
 glm::vec2 Mouse::pos(void)

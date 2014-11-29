@@ -32,3 +32,16 @@ Keyboard SDL_Activity::getKeyboard(void)
 {
 	return keyboard;
 }
+
+void SDL_Activity::preEvent(SDL_Event& sdl_event)
+{
+	mouse.onEvent(sdl_event);
+	keyboard.onEvent(sdl_event);
+	onEvent(sdl_event);
+}
+
+void SDL_Activity::clear(void)
+{
+	mouse.clear();
+	keyboard.clear();
+}

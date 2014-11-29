@@ -61,6 +61,9 @@ class SDL_Activity
 		Mouse getMouse(void);
 		Keyboard getKeyboard(void);
 
+		void preEvent(SDL_Event& sdl_event);
+		void clear(void);
+
 	private:
 		SDL_Application* app;
 		
