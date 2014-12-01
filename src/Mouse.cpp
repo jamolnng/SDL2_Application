@@ -1,4 +1,5 @@
 #include "Mouse.h"
+#include <iostream>
 
 using namespace std;
 
@@ -67,11 +68,21 @@ void Mouse::onEvent(SDL_Event& sdl_event)
 			}
 			break;
 		case SDL_MOUSEMOTION:
-			mdelta = glm::vec2(sdl_event.motion.x - mpos.x, sdl_event.motion.y - mpos.y);
+			mdelta = glm::vec2(sdl_event.motion.xrel, sdl_event.motion.yrel);
 			mpos = glm::vec2(sdl_event.motion.x, sdl_event.motion.y);
 			if (lmb || mmb || rmb)
 			{
 				drag = true;
+			}
+			break;
+		case SDL_WINDOWEVENT:
+			if (sdl_event.window.event == SDL_WINDOWEVENT_ENTER)
+			{
+				window = true;
+			}
+			if (sdl_event.window.event == SDL_WINDOWEVENT_LEAVE)
+			{
+				window = false;
 			}
 			break;
 		default:
@@ -171,4 +182,9 @@ glm::vec2 Mouse::delta(void)
 void Mouse::setScrollAmount(unsigned int scrollAmount)
 {
 	scrolldx = scrollAmount;
+}
+
+bool Mouse::inWindow(void)
+{
+	return window;
 }

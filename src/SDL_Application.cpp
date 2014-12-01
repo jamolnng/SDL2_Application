@@ -5,6 +5,7 @@
 #include <SDL_image.h>
 #include <stdio.h>
 #include <string>
+#include <iostream>
 
 SDL_Application::SDL_Application(SDL_Activity* sdl_activity, bool useOpenGL, unsigned int openGLMajor, unsigned int openGLMinor) : activity(sdl_activity), window(useOpenGL, openGLMajor, openGLMinor), windowSurface(nullptr), exitCode(-1), running(false), exit(false), windowCreated(false)
 {
@@ -41,10 +42,9 @@ void SDL_Application::setExitCode(int newExitCode)
 
 bool SDL_Application::init(void)
 {
-	bool r = 1;
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) return 0;
 	if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) return 0;
-	return r;
+	return 1;
 }
 
 bool SDL_Application::isRunning(void)
@@ -69,6 +69,17 @@ bool SDL_Application::createWindow(char* title, unsigned int width, unsigned int
 	{
 		SDL_SetRenderTarget(renderer, nullptr);
 		SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+	}
+	else
+	{
+		glewExperimental = GL_TRUE;
+		GLenum error;
+		if ((error = glewInit()) != GLEW_OK)
+		{
+			fprintf(stderr, "Error: %s\n", glewGetErrorString(error));
+			system("pause");
+			return 0;
+		}
 	}
 	activity->init();
 	return 1;
@@ -221,4 +232,9 @@ float SDL_Application::getStaticTime(void)
 unsigned int SDL_Application::getDynamicTime(void)
 {
 	return dynamicTime;
+}
+
+Crypto SDL_Application::getCrypto(void)
+{
+	return crypto;
 }

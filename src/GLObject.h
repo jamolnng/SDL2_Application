@@ -11,7 +11,7 @@ template <typename T> class GLObject
 		operator T (void)
 		{
 			return value;
-		}
+		}//*/
 
 		virtual void dispose(void) = 0;
 };

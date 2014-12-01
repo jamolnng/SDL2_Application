@@ -14,6 +14,8 @@ class GLVertexBufferObject : public GLObject<GLuint>
 
 		void createVertexBufferObject(GLvoid* vertices, GLuint size);
 		void dispose(void);
+
+		static GLuint create(GLvoid* vertices, GLuint size);
 };
 
 typedef GLVertexBufferObject GLvbo;

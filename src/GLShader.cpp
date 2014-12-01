@@ -1,8 +1,29 @@
 #include "GLShader.h"
 
+void printShaderLog(GLuint shader)
+{
+	if( glIsShader( shader ) )
+	{
+		int infoLogLength = 0;
+		int maxLength = infoLogLength;
+		glGetShaderiv( shader, GL_INFO_LOG_LENGTH, &maxLength );
+		char* infoLog = new char[ maxLength ];
+		glGetShaderInfoLog( shader, maxLength, &infoLogLength, infoLog );
+		if( infoLogLength > 0 )
+		{
+			printf( "%s\n", infoLog );
+		}
+		delete[] infoLog;
+	}
+	else
+	{
+		printf( "Name %d is not a shader\n", shader );
+	}
+}
+
 GLShader::GLShader(const char* vertex, const char* fragment)
 {
-	createShaderProgram(vertex, fragment);
+	createShaderProgramFromFile(vertex, fragment);
 }
 
 GLShader::GLShader(void)
@@ -29,7 +50,7 @@ void GLShader::createFragmentProgram(const char* fragmentFile)
 	glCompileShader(fragmentProgram);
 }
 
-void GLShader::createShaderProgram(const char* vertexFile, const char* fragmentFile)
+void GLShader::createShaderProgramFromFile(const char* vertexFile, const char* fragmentFile)
 {
 	createVertexProgram(vertexFile);
 	createFragmentProgram(fragmentFile);
@@ -41,6 +62,43 @@ void GLShader::createShaderProgram(GLuint vertexProgram, GLuint fragmentProgram)
 	value = glCreateProgram();
 	glAttachShader(value, vertexProgram);
 	glAttachShader(value, fragmentProgram);
+}
+
+void GLShader::createShaderProgram(const char* vertexSource, const char* fragmentSource)
+{
+	if (vertexSource != "")
+	{
+		vertexProgram = glCreateShader(GL_VERTEX_SHADER);
+		glShaderSource(vertexProgram, 1, (const GLchar**)&vertexSource, 0);
+		glCompileShader(vertexProgram);
+
+		GLint vShaderCompiled = GL_FALSE;
+		glGetShaderiv(vertexProgram, GL_COMPILE_STATUS, &vShaderCompiled);
+		if (vShaderCompiled != GL_TRUE)
+		{
+			printf("Unable to compile vertex shader %d!\n", vertexProgram);
+			printShaderLog(vertexProgram);
+		}
+	}
+	if (fragmentSource != "")
+	{
+		fragmentProgram = glCreateShader(GL_FRAGMENT_SHADER);
+		glShaderSource(fragmentProgram, 1, (const GLchar**)&fragmentSource, 0);
+		glCompileShader(fragmentProgram);
+
+		GLint vShaderCompiled = GL_FALSE;
+		glGetShaderiv(fragmentProgram, GL_COMPILE_STATUS, &vShaderCompiled);
+		if (vShaderCompiled != GL_TRUE)
+		{
+			printf("Unable to compile fragment shader %d!\n", fragmentProgram);
+			printShaderLog(fragmentProgram);
+		}
+	}
+
+	value = glCreateProgram();
+	if (vertexSource != "") glAttachShader(value, vertexProgram);
+	if (fragmentSource != "") glAttachShader(value, fragmentProgram);
+	link();
 }
 
 void GLShader::link(void)
@@ -271,4 +329,48 @@ GLuint GLShader::getUniform(const char* name)
 	map<const char*, GLuint>::iterator it = uniforms.find(name);
 	if (it == uniforms.end()) return 0;
 	return it->second;
+}
+
+GLuint GLShader::get(void)
+{
+	return value;
+}
+
+GLuint* GLShader::create(const char* vertexSource, const char* fragmentSource)
+{
+	GLuint out[3];
+	if (vertexSource != "")
+	{
+		out[1] = glCreateShader(GL_VERTEX_SHADER);
+		glShaderSource(out[1], 1, (const GLchar**)&vertexSource, 0);
+		glCompileShader(out[1]);
+
+		GLint vShaderCompiled = GL_FALSE;
+		glGetShaderiv(out[1], GL_COMPILE_STATUS, &vShaderCompiled);
+		if (vShaderCompiled != GL_TRUE)
+		{
+			printf("Unable to compile vertex shader %d!\n", out[1]);
+			printShaderLog(out[1]);
+		}
+	}
+	if (fragmentSource != "")
+	{
+		out[2] = glCreateShader(GL_FRAGMENT_SHADER);
+		glShaderSource(out[2], 1, (const GLchar**)&fragmentSource, 0);
+		glCompileShader(out[2]);
+
+		GLint vShaderCompiled = GL_FALSE;
+		glGetShaderiv(out[2], GL_COMPILE_STATUS, &vShaderCompiled);
+		if (vShaderCompiled != GL_TRUE)
+		{
+			printf("Unable to compile fragment shader %d!\n", out[2]);
+			printShaderLog(out[2]);
+		}
+	}
+
+	out[0] = glCreateProgram();
+	if (vertexSource != "") glAttachShader(out[0], out[1]);
+	if (fragmentSource != "") glAttachShader(out[0], out[2]);
+	glLinkProgram(out[0]);
+	return out;
 }

@@ -4,9 +4,9 @@
 
 const char* SDL_Utils::readFile(const char* fileName)
 {
-	std::ifstream in(fileName);
-	std::string contents((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>());
-	return contents.c_str();
+	ifstream t(fileName);
+	string str((istreambuf_iterator<char>(t)), istreambuf_iterator<char>());
+	return str.c_str();
 }
 
 bool SDL_Utils::saveScreenShot(SDL_Application_Window* window, const char* fileName)

@@ -24,6 +24,12 @@ class GLFrameBufferObject : public GLObject<GLuint>
 		
 		void dispose(void);
 
+		/*
+		 * Returns a 1 dimensional array with 3 objects in it. The first object is the frame buffer, the second one is the texture
+		 * The last object is the depth buffer which will be 0 unless hasDepth is true
+		 */
+		static GLuint* create(GLuint width, GLuint height, bool hasDepth = false, bool useEXT = false);
+
 	private:
 		GLuint texture, depthBuffer, width, height;
 		bool _hasDepth;

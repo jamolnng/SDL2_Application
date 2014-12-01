@@ -1,4 +1,5 @@
 #include "GLFrameBufferObject.h"
+#include <cassert>
 
 GLFrameBufferObject::GLFrameBufferObject(GLuint width, GLuint height, bool hasDepth, bool useEXT)
 {
@@ -129,4 +130,41 @@ void GLFrameBufferObject::dispose(void)
 {
 	//glDeleteFramebuffersEXT(1, &value);
 	glDeleteFramebuffers(1, &value);
+}
+
+GLuint* GLFrameBufferObject::create(GLuint width, GLuint height, bool hasDepth, bool useEXT)
+{
+	assert(width * height > 0 && "Can not have a Frame Buffer with 0 pixels!");
+	GLuint out[3];
+	glActiveTexture(GL_TEXTURE0);
+	glGenTextures(1, &out[2]);
+	glBindTexture(GL_TEXTURE_2D, out[1]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+
+	if (hasDepth)
+	{
+		/* Depth buffer */
+		glGenRenderbuffers(1, &out[2]);
+		glBindRenderbuffer(GL_RENDERBUFFER, out[2]);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, width, height);
+		glBindRenderbuffer(GL_RENDERBUFFER, 0);
+	}
+
+	/* Framebuffer to link everything together */
+	glGenFramebuffers(1, &out[0]);
+	glBindFramebuffer(GL_FRAMEBUFFER, out[0]);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, out[1], 0);
+	if (hasDepth)
+	{
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, out[2]);
+	}
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	return out;
 }

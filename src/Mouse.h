@@ -17,6 +17,7 @@ class Mouse
 		bool down(unsigned int button);
 		bool clicked(unsigned int button);
 		bool dragging(void);
+		bool inWindow(void);
 		int scrollDirection(void);
 		int scroll(void);
 		double deltaX(void);
@@ -27,7 +28,7 @@ class Mouse
 		glm::vec2 delta(void);
 
 	private:
-		bool lmb, mmb, rmb, drag, plmb, pmmb, prmb, locked;
+		bool lmb, mmb, rmb, drag, plmb, pmmb, prmb, locked, window;
 		int lastScroll, totalScroll;
 		unsigned int scrolldx;
 		glm::vec2 mpos, mdelta;

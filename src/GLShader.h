@@ -21,8 +21,9 @@ class GLShader : public GLObject<GLuint>
 
 		void createVertexProgram(const char* vertexFile);
 		void createFragmentProgram(const char* fragmentFile);
-		void createShaderProgram(const char* vertexFile, const char* fragmentFile);
+		void createShaderProgramFromFile(const char* vertexFile, const char* fragmentFile);
 		void createShaderProgram(GLuint vertexProgram, GLuint fragmentProgram);
+		void createShaderProgram(const char* vertexSource, const char* fragmentSource);
 		void link(void);
 		GLuint getVertexProgram(void);
 		GLuint getFragmentProgram(void);
@@ -37,6 +38,13 @@ class GLShader : public GLObject<GLuint>
 		bool setUniformiv(const char* name, int* values, unsigned int count = 1);
 		GLuint getAttrib(const char* name);
 		GLuint getUniform(const char* name);
+		GLuint get(void);
+
+		/*
+		 * Returns a 1 dimensional array that contains 3 values. The first is the shader, the second is the vertex program
+		 * the third is the fragment program
+		 */
+		static GLuint* create(const char* vertexSource, const char* fragmentSource);
 
 	private:
 		GLuint vertexProgram, fragmentProgram;

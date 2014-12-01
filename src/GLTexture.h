@@ -1,15 +1,20 @@
 #pragma once
 
+#include <GL\glew.h>
+#include <GL\GL.h>
+#include <GL\GLU.h>
 #include "GLObject.h"
+#include "SDL_Application.h"
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include <SDL_image.h>
-#include "SDL_Application.h"
+#include "Crypto.h"
 
 class GLTexture : public GLObject<GLuint>
 {
 	public:
 		GLTexture(void);
+		GLTexture(char* file, int MIN_FILTER = GL_LINEAR, int MAG_FILTER = GL_LINEAR);
 		~GLTexture(void);
 
 		bool load(char* fileName, int MIN_FILTER = GL_LINEAR, int MAG_FILTER = GL_LINEAR);
@@ -32,6 +37,9 @@ class GLTexture : public GLObject<GLuint>
 		bool testPixel(unsigned int x, unsigned int y);
 
 		SDL_Surface* getSurface(void);
+
+		static GLuint load(const char* fileName, int MIN_FILTER = GL_LINEAR, int MAG_FILTER = GL_LINEAR);
+		static SDL_Surface* loads(const char* fileName);
 
 	private:
 		SDL_Surface* surface;

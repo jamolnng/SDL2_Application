@@ -9,6 +9,15 @@ GLTexture::GLTexture(void)
 	pixels = nullptr;
 }
 
+GLTexture::GLTexture(char* file, int MIN_FILTER, int MAG_FILTER)
+{
+	value = 0;
+	surface = nullptr;
+	glGenTextures(1, &value);
+	pixels = nullptr;
+	load(file, MIN_FILTER, MAG_FILTER);
+}
+
 GLTexture::~GLTexture(void)
 {
 	dispose();
@@ -156,4 +165,23 @@ bool GLTexture::createEmpty(unsigned int width, unsigned int height, int MIN_FIL
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	return true;
+}
+
+GLuint GLTexture::load(const char* fileName, int MIN_FILTER, int MAG_FILTER)
+{
+	GLuint out = 0;
+	SDL_Surface* surface = IMG_Load(fileName);
+	glGenTextures(1, &out);
+	glBindTexture(GL_TEXTURE_2D, out);
+	auto format = surface->format->Amask ? GL_RGBA : GL_RGB;
+	glTexImage2D(GL_TEXTURE_2D, 0, format, surface->w, surface->h, 0, format, GL_UNSIGNED_BYTE, surface->pixels);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, MIN_FILTER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, MAG_FILTER);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	return out;
+}
+
+SDL_Surface* GLTexture::loads(const char* fileName)
+{
+	return IMG_Load(fileName);
 }

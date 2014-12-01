@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include "SDL_Application_Window.h"
 #include "Properties.h"
+#include "Crypto.h"
 
 class SDL_Activity;
 
@@ -120,6 +121,11 @@ class SDL_Application
 		*/
 		Properties getProperties(void);
 
+		/*
+		 * Returns the default crypto class
+		 */
+		Crypto getCrypto(void);
+
 	private:
 		/*
 		* void
@@ -180,4 +186,7 @@ class SDL_Application
 
 		//Optional properties
 		Properties properties;
+
+		//Default encryptor/decryptor
+		Crypto crypto;
 };

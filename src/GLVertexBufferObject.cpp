@@ -26,3 +26,13 @@ void GLVertexBufferObject::dispose(void)
 {
 	glDeleteBuffers(1, &value);
 }
+
+GLuint GLVertexBufferObject::create(GLvoid* vertices, GLuint size)
+{
+	GLuint out = 0;
+	glGenBuffers(1, &out);
+	glBindBuffer(GL_ARRAY_BUFFER, out);
+	glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	return out;
+}
