@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Crypto.cpp" />
+    <ClCompile Include="GLFrameBufferObject.cpp" />
+    <ClCompile Include="GLObject.cpp" />
+    <ClCompile Include="GLShader.cpp" />
+    <ClCompile Include="GLTexture.cpp" />
+    <ClCompile Include="GLVertexBufferObject.cpp" />
+    <ClCompile Include="Keyboard.cpp" />
+    <ClCompile Include="LTexture.cpp" />
+    <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="Properties.cpp" />
+    <ClCompile Include="SDL_Activity.cpp" />
+    <ClCompile Include="SDL_Application.cpp" />
+    <ClCompile Include="SDL_Application_Window.cpp" />
+    <ClCompile Include="SDL_Utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Crypto.h" />
+    <ClInclude Include="GLFrameBufferObject.h" />
+    <ClInclude Include="GLObject.h" />
+    <ClInclude Include="GLShader.h" />
+    <ClInclude Include="GLTexture.h" />
+    <ClInclude Include="GLVertexBufferObject.h" />
+    <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="LTexture.h" />
+    <ClInclude Include="Mouse.h" />
+    <ClInclude Include="Properties.h" />
+    <ClInclude Include="SDL_Activity.h" />
+    <ClInclude Include="SDL_Application.h" />
+    <ClInclude Include="SDL_Application_Window.h" />
+    <ClInclude Include="SDL_Utils.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D6C5CF1D-0060-4DFF-8995-47626FC5AB54}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>SDL_l</RootNamespace>
+    <ProjectName>SDL2_Application</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Users\Jesse\Documents\C++\Libraries\Crypto++;C:\Users\Jesse\Documents\C++\Libraries\SDL2_image-2.0.0\include;C:\Users\Jesse\Documents\C++\Libraries\SDL-2.0\include;C:\Users\Jesse\Documents\C++\Libraries\glm;C:\Users\Jesse\Documents\C++\Libraries\glew-1.10.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>glu32.lib;glew32.lib;OpenGL32.lib;cryptlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Jesse\Documents\C++\Libraries\Crypto++\Win32\Output\Debug;C:\Users\Jesse\Documents\C++\Libraries\SDL2_image-2.0.0\lib\x86;C:\Users\Jesse\Documents\C++\Libraries\SDL-2.0\lib\x86;C:\Users\Jesse\Documents\C++\Libraries\glew-1.10.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Users\Jesse\Documents\C++\Libraries\Crypto++;C:\Users\Jesse\Documents\C++\Libraries\SDL2_image-2.0.0\include;C:\Users\Jesse\Documents\C++\Libraries\SDL-2.0\include;C:\Users\Jesse\Documents\C++\Libraries\glm;C:\Users\Jesse\Documents\C++\Libraries\glew-1.10.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>glu32.lib;glew32.lib;OpenGL32.lib;cryptlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Jesse\Documents\C++\Libraries\Crypto++\Win32\Output\Release;C:\Users\Jesse\Documents\C++\Libraries\SDL2_image-2.0.0\lib\x86;C:\Users\Jesse\Documents\C++\Libraries\SDL-2.0\lib\x86;C:\Users\Jesse\Documents\C++\Libraries\glew-1.10.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
