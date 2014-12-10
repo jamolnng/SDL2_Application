@@ -1,5 +1,4 @@
 #include "GLFrameBufferObject.h"
-#include <cassert>
 
 GLFrameBufferObject::GLFrameBufferObject(GLuint width, GLuint height, bool hasDepth, bool useEXT)
 {
@@ -134,7 +133,6 @@ void GLFrameBufferObject::dispose(void)
 
 GLuint* GLFrameBufferObject::create(GLuint width, GLuint height, bool hasDepth, bool useEXT)
 {
-	assert(width * height > 0 && "Can not have a Frame Buffer with 0 pixels!");
 	GLuint out[3];
 	glActiveTexture(GL_TEXTURE0);
 	glGenTextures(1, &out[2]);
