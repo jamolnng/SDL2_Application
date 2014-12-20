@@ -27,24 +27,41 @@ bool SDL_Utils::saveScreenShot(SDL_Application_Window* window, const char* fileN
 	bmask = 0x00ff0000;
 	amask = 0xff000000;
 #endif
-	SDL_Surface* surface = SDL_CreateRGBSurface(0, window->getWidth(), window->getHeight(), 32, rmask, gmask, bmask, amask);
+	SDL_Surface* surface = SDL_CreateRGBSurface(0, window->getWidth(), window->getHeight(), 24, rmask, gmask, bmask, amask);
 
 	if (window->isUsingOpenGL())
 	{
-		glReadBuffer(GL_FRONT);
 		glReadPixels(0, 0, window->getWidth(), window->getHeight(), GL_RGB, GL_UNSIGNED_BYTE, surface->pixels);
-		surface = flipVert(surface);
+
+		int index;
+		void* temp_row;
+		int height_div_2;
+		temp_row = (void *)malloc(surface->pitch);
+		if (NULL == temp_row)
+		{
+			SDL_SetError("Not enough memory for image inversion");
+		}
+		height_div_2 = (int)(surface->h * .5);
+		for (index = 0; index < height_div_2; index++)
+		{
+			memcpy((Uint8 *)temp_row, (Uint8 *)(surface->pixels) + surface->pitch * index, surface->pitch);
+			memcpy((Uint8 *)(surface->pixels) + surface->pitch * index, (Uint8 *)(surface->pixels) + surface->pitch * (surface->h - index - 1), surface->pitch);
+			memcpy((Uint8 *)(surface->pixels) + surface->pitch * (surface->h - index - 1), temp_row, surface->pitch);
+		}
+		free(temp_row);
+		//surface = flipVert(surface);
 	}
 	else
 	{
 		surface = SDL_GetWindowSurface(window->getWindow());
 	}
 	string file = string(fileName);
-	if (endsWith(toLower(file), string(".png")))
+	string f1 = file;
+	if (endsWith(toLower(f1), string(".png")))
 	{
 		IMG_SavePNG(surface, file.c_str());
 	}
-	else if (endsWith(toLower(file), string(".bmp")))
+	else if (endsWith(toLower(f1), string(".bmp")))
 	{
 		SDL_SaveBMP(surface, file.c_str());
 	}
