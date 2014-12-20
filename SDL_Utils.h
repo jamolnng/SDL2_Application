@@ -25,4 +25,5 @@ class SDL_Utils
 		static SDL_Surface* flipVert(SDL_Surface* surfaceToFlip);
 		static string toLower(string&);
 		static bool endsWith(string& fullString, string& ending);
+		static int rand(void);
 };

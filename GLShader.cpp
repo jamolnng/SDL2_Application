@@ -22,6 +22,11 @@ GLShader::~GLShader()
 {
 }
 
+GLuint GLShader::getShader(void)
+{
+	return _programID;
+}
+
 void GLShader::compileShaders(const std::string& shaderName)
 {
 	std::string vertexShaderFilePath = "../data/shaders/vertex/" + shaderName + ".glsl";

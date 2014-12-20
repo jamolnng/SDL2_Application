@@ -11,6 +11,7 @@ class GLShader
 
 		GLuint getUniformLocation(const std::string& uniformName);
 		GLuint getAttribLocation(const std::string& attribName);
+		GLuint getShader(void);
 
 		void compileShaders(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
 		void compileShaders(const std::string& shaderName);

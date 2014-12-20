@@ -1,6 +1,7 @@
 #include "SDL_Utils.h"
 #include "SDL_image.h"
 #include <algorithm>
+#include <ctime>
 
 const char* SDL_Utils::readFile(const char* fileName)
 {
@@ -90,4 +91,10 @@ bool SDL_Utils::endsWith(string& full, string& end)
 	{
 		return false;
 	}
+}
+
+int SDL_Utils::rand(void)
+{
+	srand((std::time(0) % std::rand()) * std::rand());
+	return abs(std::rand());
 }
