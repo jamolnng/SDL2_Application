@@ -221,7 +221,7 @@ bool SDL_Application_Window::hasMouseFocus(void)
 	return mouseFocus;
 }
 
-bool SDL_Application_Window::setFullscreen(bool fullscreenFlag)
+bool SDL_Application_Window::setFullscreen(bool fullscreenFlag, bool useCurrentDisplayMode)
 {
 	if (fullScreen == fullscreenFlag) return 0;
 	int i = -1;
@@ -236,13 +236,23 @@ bool SDL_Application_Window::setFullscreen(bool fullscreenFlag)
 		SDL_DisplayMode current;
 		for (int j = 0; j < SDL_GetNumVideoDisplays(); ++j)
 		{
-			int should_be_zero = SDL_GetCurrentDisplayMode(j, &current);
+			int should_be_zero;
+			if (useCurrentDisplayMode)
+			{
+				should_be_zero = SDL_GetCurrentDisplayMode(j, &current);
+			}
+			else
+			{
+				should_be_zero = SDL_GetDesktopDisplayMode(j, &current);
+			}
 			if (should_be_zero != 0);
 			else
 			{
 				width = current.w;
 				height = current.h;
+#ifdef _DEBUG
 				std::cout << width << "x" << height << std::endl;
+#endif
 			}
 		}
 		fullScreen = true;

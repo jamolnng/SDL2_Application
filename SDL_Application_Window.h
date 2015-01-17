@@ -25,7 +25,7 @@ class SDL_Application_Window
 		const char* getTitle(void);
 		bool hasMouseFocus(void), hasKeyboardFocus(void), isFullscreen(void), isMinimized(void), isUsingOpenGL(void);
 
-		bool setFullscreen(bool fullscreen);
+		bool setFullscreen(bool fullscreen, bool useCurrentDisplayMode = true);
 		void setIcon(char* iconFile = "");
 		void setTitle(char* title = "");
 
