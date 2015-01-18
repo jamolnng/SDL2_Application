@@ -2,7 +2,7 @@
 
 #include <SDL.h>
 #include "SDL_Application_Window.h"
-#include "Properties.h"
+#include "Properties.pb.h"
 #include "Crypto.h"
 
 class SDL_Activity;

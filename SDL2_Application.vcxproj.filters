@@ -69,9 +69,6 @@
     <ClCompile Include="GLFrameBufferObject.cpp">
       <Filter>Source Files\GL</Filter>
     </ClCompile>
-    <ClCompile Include="Properties.cpp">
-      <Filter>Source Files\R</Filter>
-    </ClCompile>
     <ClCompile Include="Mouse.cpp">
       <Filter>Source Files\R</Filter>
     </ClCompile>
@@ -79,6 +76,9 @@
       <Filter>Source Files\R</Filter>
     </ClCompile>
     <ClCompile Include="Keyboard.cpp">
+      <Filter>Source Files\R</Filter>
+    </ClCompile>
+    <ClCompile Include="Properties.pb.cc">
       <Filter>Source Files\R</Filter>
     </ClCompile>
   </ItemGroup>
@@ -113,9 +113,6 @@
     <ClInclude Include="GLFrameBufferObject.h">
       <Filter>Header Files\GL</Filter>
     </ClInclude>
-    <ClInclude Include="Properties.h">
-      <Filter>Header Files\R</Filter>
-    </ClInclude>
     <ClInclude Include="Mouse.h">
       <Filter>Header Files\R</Filter>
     </ClInclude>
@@ -123,6 +120,9 @@
       <Filter>Header Files\R</Filter>
     </ClInclude>
     <ClInclude Include="Keyboard.h">
+      <Filter>Header Files\R</Filter>
+    </ClInclude>
+    <ClInclude Include="Properties.pb.h">
       <Filter>Header Files\R</Filter>
     </ClInclude>
   </ItemGroup>

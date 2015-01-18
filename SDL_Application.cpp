@@ -14,7 +14,7 @@ SDL_Application::SDL_Application(SDL_Activity* sdl_activity, bool useOpenGL, uns
 	initialized = false;
 }
 
-SDL_Application::SDL_Application(SDL_Activity* sdl_activity, Properties props) : activity(sdl_activity), window(props.getb("UseOpenGL"), props.geti("OpenGLMajor"), props.geti("OpenGLMinor")), windowSurface(nullptr), exitCode(-1), running(false), exit(false), windowCreated(false)
+SDL_Application::SDL_Application(SDL_Activity* sdl_activity, Properties props) : activity(sdl_activity), window(props.useopengl(), props.openglmajorversion(), props.openglminorversion()), windowSurface(nullptr), exitCode(-1), running(false), exit(false), windowCreated(false)
 {
 	activity->setApp(this);
 	initialized = false;
@@ -88,11 +88,11 @@ bool SDL_Application::createWindow(char* title, unsigned int width, unsigned int
 
 bool SDL_Application::createWindow(Properties props)
 {
-	string title = props.gets("Title");
-	int width = props.geti("Width");
-	int height = props.geti("Height");
-	Uint32 flags = props.geti("Flags");
-	string icon = props.gets("Icon");
+	string title = props.title();
+	int width = props.width();
+	int height = props.height();
+	Uint32 flags = props.flags();
+	string icon = props.icon();
 
 	return createWindow((char*)title.c_str(), width, height, flags, (char*)icon.c_str());
 }

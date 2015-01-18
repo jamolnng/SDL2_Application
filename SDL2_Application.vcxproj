@@ -5,6 +5,10 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="PB_Config|Win32">
+      <Configuration>PB_Config</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
@@ -20,7 +24,7 @@
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="LTexture.cpp" />
     <ClCompile Include="Mouse.cpp" />
-    <ClCompile Include="Properties.cpp" />
+    <ClCompile Include="Properties.pb.cc" />
     <ClCompile Include="SDL_Activity.cpp" />
     <ClCompile Include="SDL_Application.cpp" />
     <ClCompile Include="SDL_Application_Window.cpp" />
@@ -36,7 +40,7 @@
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="LTexture.h" />
     <ClInclude Include="Mouse.h" />
-    <ClInclude Include="Properties.h" />
+    <ClInclude Include="Properties.pb.h" />
     <ClInclude Include="SDL_Activity.h" />
     <ClInclude Include="SDL_Application.h" />
     <ClInclude Include="SDL_Application_Window.h" />
@@ -55,6 +59,12 @@
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PB_Config|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -68,6 +78,9 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PB_Config|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -79,7 +92,26 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_SCL_SECURE_NO_WARNINGS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Users\Jesse\Documents\C++\Libraries\ProtoBuf\protobuf-2.6.1\vsprojects\include;C:\Users\Jesse\Documents\C++\Libraries\Crypto++;C:\Users\Jesse\Documents\C++\Libraries\SDL2_image-2.0.0\include;C:\Users\Jesse\Documents\C++\Libraries\SDL-2.0\include;C:\Users\Jesse\Documents\C++\Libraries\glm;C:\Users\Jesse\Documents\C++\Libraries\glew-1.10.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <Lib>
+      <AdditionalDependencies>glu32.lib;glew32.lib;OpenGL32.lib;cryptlib.lib;libprotobuf.lib;libprotobuf-lite.lib;libprotoc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Jesse\Documents\C++\Libraries\ProtoBuf\protobuf-2.6.1\vsprojects\Debug;C:\Users\Jesse\Documents\C++\Libraries\Crypto++\Win32\Output\Debug;C:\Users\Jesse\Documents\C++\Libraries\SDL2_image-2.0.0\lib\x86;C:\Users\Jesse\Documents\C++\Libraries\SDL-2.0\lib\x86;C:\Users\Jesse\Documents\C++\Libraries\glew-1.10.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PB_Config|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_SCL_SECURE_NO_WARNINGS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\Users\Jesse\Documents\C++\Libraries\ProtoBuf\protobuf-2.6.1\vsprojects\include;C:\Users\Jesse\Documents\C++\Libraries\Crypto++;C:\Users\Jesse\Documents\C++\Libraries\SDL2_image-2.0.0\include;C:\Users\Jesse\Documents\C++\Libraries\SDL-2.0\include;C:\Users\Jesse\Documents\C++\Libraries\glm;C:\Users\Jesse\Documents\C++\Libraries\glew-1.10.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -100,7 +132,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_SCL_SECURE_NO_WARNINGS;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\Users\Jesse\Documents\C++\Libraries\ProtoBuf\protobuf-2.6.1\vsprojects\include;C:\Users\Jesse\Documents\C++\Libraries\Crypto++;C:\Users\Jesse\Documents\C++\Libraries\SDL2_image-2.0.0\include;C:\Users\Jesse\Documents\C++\Libraries\SDL-2.0\include;C:\Users\Jesse\Documents\C++\Libraries\glm;C:\Users\Jesse\Documents\C++\Libraries\glew-1.10.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
