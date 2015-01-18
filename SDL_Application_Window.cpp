@@ -257,7 +257,8 @@ bool SDL_Application_Window::setFullscreen(bool fullscreenFlag, bool useCurrentD
 		}
 		fullScreen = true;
 		minimized = false;
-		i = SDL_SetWindowFullscreen(sdl_window, SDL_TRUE);
+		SDL_SetWindowDisplayMode(sdl_window, &current);
+		i = SDL_SetWindowFullscreen(sdl_window, SDL_WINDOW_FULLSCREEN);
 	}
 	return i >= 0;
 }

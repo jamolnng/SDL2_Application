@@ -81,15 +81,15 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\Jesse\Documents\C++\Libraries\Crypto++;C:\Users\Jesse\Documents\C++\Libraries\SDL2_image-2.0.0\include;C:\Users\Jesse\Documents\C++\Libraries\SDL-2.0\include;C:\Users\Jesse\Documents\C++\Libraries\glm;C:\Users\Jesse\Documents\C++\Libraries\glew-1.10.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Jesse\Documents\C++\Libraries\ProtoBuf\protobuf-2.6.1\vsprojects\include;C:\Users\Jesse\Documents\C++\Libraries\Crypto++;C:\Users\Jesse\Documents\C++\Libraries\SDL2_image-2.0.0\include;C:\Users\Jesse\Documents\C++\Libraries\SDL-2.0\include;C:\Users\Jesse\Documents\C++\Libraries\glm;C:\Users\Jesse\Documents\C++\Libraries\glew-1.10.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>glu32.lib;glew32.lib;OpenGL32.lib;cryptlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Jesse\Documents\C++\Libraries\Crypto++\Win32\Output\Debug;C:\Users\Jesse\Documents\C++\Libraries\SDL2_image-2.0.0\lib\x86;C:\Users\Jesse\Documents\C++\Libraries\SDL-2.0\lib\x86;C:\Users\Jesse\Documents\C++\Libraries\glew-1.10.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glu32.lib;glew32.lib;OpenGL32.lib;cryptlib.lib;libprotobuf.lib;libprotobuf-lite.lib;libprotoc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Jesse\Documents\C++\Libraries\ProtoBuf\protobuf-2.6.1\vsprojects\Debug;C:\Users\Jesse\Documents\C++\Libraries\Crypto++\Win32\Output\Debug;C:\Users\Jesse\Documents\C++\Libraries\SDL2_image-2.0.0\lib\x86;C:\Users\Jesse\Documents\C++\Libraries\SDL-2.0\lib\x86;C:\Users\Jesse\Documents\C++\Libraries\glew-1.10.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -102,7 +102,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\Jesse\Documents\C++\Libraries\Crypto++;C:\Users\Jesse\Documents\C++\Libraries\SDL2_image-2.0.0\include;C:\Users\Jesse\Documents\C++\Libraries\SDL-2.0\include;C:\Users\Jesse\Documents\C++\Libraries\glm;C:\Users\Jesse\Documents\C++\Libraries\glew-1.10.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Jesse\Documents\C++\Libraries\ProtoBuf\protobuf-2.6.1\vsprojects\include;C:\Users\Jesse\Documents\C++\Libraries\Crypto++;C:\Users\Jesse\Documents\C++\Libraries\SDL2_image-2.0.0\include;C:\Users\Jesse\Documents\C++\Libraries\SDL-2.0\include;C:\Users\Jesse\Documents\C++\Libraries\glm;C:\Users\Jesse\Documents\C++\Libraries\glew-1.10.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -112,8 +112,8 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>glu32.lib;glew32.lib;OpenGL32.lib;cryptlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Jesse\Documents\C++\Libraries\Crypto++\Win32\Output\Release;C:\Users\Jesse\Documents\C++\Libraries\SDL2_image-2.0.0\lib\x86;C:\Users\Jesse\Documents\C++\Libraries\SDL-2.0\lib\x86;C:\Users\Jesse\Documents\C++\Libraries\glew-1.10.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glu32.lib;glew32.lib;OpenGL32.lib;cryptlib.lib;libprotobuf.lib;libprotobuf-lite.lib;libprotoc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Jesse\Documents\C++\Libraries\ProtoBuf\protobuf-2.6.1\vsprojects\Release;C:\Users\Jesse\Documents\C++\Libraries\Crypto++\Win32\Output\Release;C:\Users\Jesse\Documents\C++\Libraries\SDL2_image-2.0.0\lib\x86;C:\Users\Jesse\Documents\C++\Libraries\SDL-2.0\lib\x86;C:\Users\Jesse\Documents\C++\Libraries\glew-1.10.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

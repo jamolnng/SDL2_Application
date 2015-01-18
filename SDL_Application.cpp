@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
+#include <google/protobuf/stubs/common.h>
 
 SDL_Application::SDL_Application(SDL_Activity* sdl_activity, bool useOpenGL, unsigned int openGLMajor, unsigned int openGLMinor) : activity(sdl_activity), window(useOpenGL, openGLMajor, openGLMinor), windowSurface(nullptr), exitCode(-1), running(false), exit(false), windowCreated(false)
 {
@@ -109,6 +110,7 @@ int SDL_Application::finish(void)
 	window.dispose();
 	IMG_Quit();
 	SDL_Quit();
+	google::protobuf::ShutdownProtobufLibrary();
 	return getExitCode();
 }
 
