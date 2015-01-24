@@ -12,13 +12,7 @@ SDL_Application::SDL_Application(SDL_Activity* sdl_activity, bool useOpenGL, uns
 {
 	activity->setApp(this);
 	initialized = false;
-}
-
-SDL_Application::SDL_Application(SDL_Activity* sdl_activity, Properties props) : activity(sdl_activity), window(props.useopengl(), props.openglmajorversion(), props.openglminorversion()), windowSurface(nullptr), exitCode(-1), running(false), exit(false), windowCreated(false)
-{
-	activity->setApp(this);
-	initialized = false;
-	properties = props;
+	maxUpdates = 5;
 }
 
 SDL_Application::~SDL_Application(void)
@@ -86,17 +80,6 @@ bool SDL_Application::createWindow(char* title, unsigned int width, unsigned int
 	return 1;
 }
 
-bool SDL_Application::createWindow(Properties props)
-{
-	string title = props.title();
-	int width = props.width();
-	int height = props.height();
-	Uint32 flags = props.flags();
-	string icon = props.icon();
-
-	return createWindow((char*)title.c_str(), width, height, flags, (char*)icon.c_str());
-}
-
 int SDL_Application::getExitCode(void)
 {
 	if (!exit) return -1;
@@ -133,6 +116,7 @@ SDL_Surface* SDL_Application::loadImage(char* fileName)
 
 unsigned int frames = 0;
 int fpsTime = 0;
+unsigned int nextMaxUpdate = 5;
 
 void SDL_Application::run(void)
 {
@@ -154,7 +138,9 @@ void SDL_Application::run(void)
 		int updates = 0;
 		updateTime = SDL_GetTicks();
 
-		while ((updateTime - updateNext) >= updateRate && updates++ < 5)
+		if (maxUpdates != nextMaxUpdate) maxUpdates = nextMaxUpdate;
+
+		while ((updateTime - updateNext) >= updateRate && updates++ < maxUpdates)
 		{
 			//fixed update
 			staticTime += updateRate;
@@ -162,7 +148,7 @@ void SDL_Application::run(void)
 			updateNext += updateRate;
 		}
 
-		if (updates == 5 && (updateTime - updateNext) >= updateRate)
+		if (updates > maxUpdates && (updateTime - updateNext) >= updateRate)
 		{
 			printf("The Program Can't Keep Up\n");
 		}
@@ -221,11 +207,6 @@ bool SDL_Application::isInitialized(void)
 	return initialized;
 }
 
-Properties SDL_Application::getProperties(void)
-{
-	return properties;
-}
-
 float SDL_Application::getStaticTime(void)
 {
 	return staticTime;
@@ -236,7 +217,13 @@ unsigned int SDL_Application::getDynamicTime(void)
 	return dynamicTime;
 }
 
-Crypto SDL_Application::getCrypto(void)
+//Crypto SDL_Application::getCrypto(void)
+//{
+//	return crypto;
+//}
+
+void SDL_Application::setMaxUpdates(unsigned int max)
 {
-	return crypto;
+	if (max == 0) max = 5;
+	nextMaxUpdate = max;
 }

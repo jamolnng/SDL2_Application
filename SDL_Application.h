@@ -2,7 +2,6 @@
 
 #include <SDL.h>
 #include "SDL_Application_Window.h"
-#include "Properties.pb.h"
 #include "Crypto.h"
 
 class SDL_Activity;
@@ -17,7 +16,6 @@ class SDL_Application
 		* param OpenGLMinor - The minor version of OpenGL (for example 2 to use OpenGL X.2, where X is the major version)
 		*/
 		SDL_Application(SDL_Activity* activity, bool useOpenGL, unsigned int openGLMajor = 2, unsigned int openGLMinor = 1);
-		SDL_Application(SDL_Activity* activity, Properties props);
 		~SDL_Application(void);
 
 		/*
@@ -67,8 +65,6 @@ class SDL_Application
 		*/
 		bool createWindow(char* title = "SDL Layout Window", unsigned int width = 854, unsigned int height = 500, Uint32 flags = SDL_WINDOW_SHOWN, char* iconFile = "");
 
-		bool createWindow(Properties props);
-
 		/*
 		* Int
 		*/
@@ -117,14 +113,14 @@ class SDL_Application
 		bool isInitialized(void);
 
 		/*
-		 * Returns the optional properties
-		*/
-		Properties getProperties(void);
-
-		/*
 		 * Returns the default crypto class
 		 */
-		Crypto getCrypto(void);
+		//Crypto getCrypto(void);
+
+		/*
+		 * Sets the maximum number of fixed updates if the computer gets behind (should be a low number)
+		 */
+		void setMaxUpdates(unsigned int max);
 
 	private:
 		/*
@@ -168,6 +164,9 @@ class SDL_Application
 		//FPS var
 		unsigned int _fps;
 
+		//Maximum fixed updates per frame
+		unsigned int maxUpdates;
+
 		/*
 		 * Objects
 		*/
@@ -184,9 +183,6 @@ class SDL_Application
 		//The game renderer
 		SDL_Renderer* renderer;
 
-		//Optional properties
-		Properties properties;
-
 		//Default encryptor/decryptor
-		Crypto crypto;
+		//Crypto crypto;
 };
