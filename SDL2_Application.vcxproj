@@ -103,7 +103,7 @@
     <Lib>
       <AdditionalDependencies>glu32.lib;glew32.lib;OpenGL32.lib;cryptlib.lib;libprotobuf.lib;libprotobuf-lite.lib;libprotoc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Users\Jesse\Documents\C++\Libraries\ProtoBuf\protobuf-2.6.1\vsprojects\Debug;C:\Users\Jesse\Documents\C++\Libraries\Crypto++\Win32\Output\Debug;C:\Users\Jesse\Documents\C++\Libraries\SDL2_image-2.0.0\lib\x86;C:\Users\Jesse\Documents\C++\Libraries\SDL-2.0\lib\x86;C:\Users\Jesse\Documents\C++\Libraries\glew-1.10.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>/IGNORE:4006 /IGNORE:4099 /IGNORE:4221 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/IGNORE:4006 /IGNORE:4099 /IGNORE:4221 /NODEFAULTLIB:library %(AdditionalOptions)</AdditionalOptions>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PB_Config|Win32'">
@@ -123,7 +123,7 @@
     <Lib>
       <AdditionalDependencies>glu32.lib;glew32.lib;OpenGL32.lib;cryptlib.lib;libprotobuf.lib;libprotobuf-lite.lib;libprotoc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Users\Jesse\Documents\C++\Libraries\ProtoBuf\protobuf-2.6.1\vsprojects\Debug;C:\Users\Jesse\Documents\C++\Libraries\Crypto++\Win32\Output\Debug;C:\Users\Jesse\Documents\C++\Libraries\SDL2_image-2.0.0\lib\x86;C:\Users\Jesse\Documents\C++\Libraries\SDL-2.0\lib\x86;C:\Users\Jesse\Documents\C++\Libraries\glew-1.10.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>/IGNORE:4006 /IGNORE:4099 /IGNORE:4221 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/IGNORE:4006 /IGNORE:4099 /IGNORE:4221 /NODEFAULTLIB:library %(AdditionalOptions)</AdditionalOptions>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -148,7 +148,7 @@
     <Lib>
       <AdditionalDependencies>glu32.lib;glew32.lib;OpenGL32.lib;cryptlib.lib;libprotobuf.lib;libprotobuf-lite.lib;libprotoc.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Users\Jesse\Documents\C++\Libraries\ProtoBuf\protobuf-2.6.1\vsprojects\Release;C:\Users\Jesse\Documents\C++\Libraries\Crypto++\Win32\Output\Release;C:\Users\Jesse\Documents\C++\Libraries\SDL2_image-2.0.0\lib\x86;C:\Users\Jesse\Documents\C++\Libraries\SDL-2.0\lib\x86;C:\Users\Jesse\Documents\C++\Libraries\glew-1.10.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>/IGNORE:4006 /IGNORE:4099 /IGNORE:4221 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/IGNORE:4006 /IGNORE:4099 /IGNORE:4221 /NODEFAULTLIB:library %(AdditionalOptions)</AdditionalOptions>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
