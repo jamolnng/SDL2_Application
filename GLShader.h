@@ -21,7 +21,8 @@ class GLShader
 		void use();
 		void unuse();
 
-		static GLShader defaultShader(void);
+		static GLShader& defaultShader(void);
+		static void compileDefaultShader(void);
 		static GLuint mvploc;
 		static GLuint texloc;
 

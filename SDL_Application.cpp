@@ -143,16 +143,15 @@ void SDL_Application::run(void)
 		while ((updateTime - updateNext) >= updateRate && updates++ < maxUpdates)
 		{
 			//fixed update
-			staticTime += updateRate;
 			activity->updateFixed();
 			updateNext += updateRate;
 		}
-
+#ifdef _DEBUG
 		if (updates > maxUpdates && (updateTime - updateNext) >= updateRate)
 		{
 			printf("The Program Can't Keep Up\n");
 		}
-		dynamicTime += deltaTime;
+#endif
 		activity->updateDynamic(deltaTime);
 
 		if (window.isUsingOpenGL())
@@ -205,16 +204,6 @@ unsigned int SDL_Application::getFPS(void)
 bool SDL_Application::isInitialized(void)
 {
 	return initialized;
-}
-
-float SDL_Application::getStaticTime(void)
-{
-	return staticTime;
-}
-
-unsigned int SDL_Application::getDynamicTime(void)
-{
-	return dynamicTime;
 }
 
 //Crypto SDL_Application::getCrypto(void)

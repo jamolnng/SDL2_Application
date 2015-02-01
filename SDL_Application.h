@@ -98,16 +98,6 @@ class SDL_Application
 		unsigned int getFPS(void);
 
 		/*
-		 * Returns the static update run time
-		 */
-		float getStaticTime(void);
-
-		/*
-		 * Returns the dynamic update run time
-		 */
-		unsigned int getDynamicTime(void);
-
-		/*
 		* Returns if the SDL_Application has been initialized
 		*/
 		bool isInitialized(void);
@@ -154,12 +144,6 @@ class SDL_Application
 		
 		//The exit code of the windows process, only used at the very end of the process/
 		int exitCode;
-
-		//The static update running time
-		float staticTime;
-
-		//The dynamic update running time
-		unsigned int dynamicTime;
 
 		//FPS var
 		unsigned int _fps;

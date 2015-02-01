@@ -227,39 +227,40 @@ GLuint GLShader::getAttribLocation(const std::string& attribName)
 	return glGetAttribLocation(_programID, attribName.c_str());
 }
 
-GLShader GLShader::defaultShader(void)
+GLShader& GLShader::defaultShader(void)
 {
-	if (d_shader._programID == 0)
-	{
-		d_shader.compileShadersFromSource(
-			//Vertex
-			"#version 130\n"
-			"uniform mat4 mvp;\n"
-			"attribute vec3 position;\n"
-			"attribute vec2 texCoord;\n"
-			"varying vec2 aCoord;\n"
-			"void main()\n"
-			"{\n"
-			"aCoord = texCoord;\n"
-			"gl_Position = mvp * vec4(position,1.0);\n"
-			"}",
-			//Fragment
-			"#version 130\n"
-			"uniform sampler2D tex;\n"
-			"varying vec2 aCoord;\n"
-			"void main(void)\n"
-			"{\n"
-			"//gl_FragColor = vec4(1.0,0.5,0.25,1.0);\n"
-			"gl_FragColor = texture2D(tex,aCoord);\n"
-			"}"
-			);
-		d_shader.addAttribute("position");
-		d_shader.addAttribute("texCoord");
-		d_shader.linkShaders();
-		mvploc = d_shader.getUniformLocation("mvp");
-		texloc = d_shader.getUniformLocation("tex");
-	}
 	return d_shader;
+}
+
+void GLShader::compileDefaultShader(void)
+{
+	d_shader.compileShadersFromSource(
+		//Vertex
+		"#version 130\n"
+		"uniform mat4 mvp;\n"
+		"attribute vec3 position;\n"
+		"attribute vec2 texCoord;\n"
+		"varying vec2 aCoord;\n"
+		"void main()\n"
+		"{\n"
+		"aCoord = texCoord;\n"
+		"gl_Position = mvp * vec4(position,1.0);\n"
+		"}",
+		//Fragment
+		"#version 130\n"
+		"uniform sampler2D tex;\n"
+		"varying vec2 aCoord;\n"
+		"void main(void)\n"
+		"{\n"
+		"//gl_FragColor = vec4(1.0,0.5,0.25,1.0);\n"
+		"gl_FragColor = texture2D(tex,aCoord);\n"
+		"}"
+		);
+	d_shader.addAttribute("position");
+	d_shader.addAttribute("texCoord");
+	d_shader.linkShaders();
+	mvploc = d_shader.getUniformLocation("mvp");
+	texloc = d_shader.getUniformLocation("tex");
 }
 
 void GLShader::compileShadersFromSource(const std::string& vertexSource, const std::string& fragmentSource)
