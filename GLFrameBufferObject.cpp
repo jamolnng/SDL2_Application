@@ -2,11 +2,19 @@
 
 GLFrameBufferObject::GLFrameBufferObject(GLuint width, GLuint height, bool hasDepth, bool useEXT)
 {
+	this->value = 0;
+	this->width = 0;
+	this->height = 0;
+	this->_hasDepth = false;
 	createFrameBufferObject(width, height, hasDepth, useEXT);
 }
 
 GLFrameBufferObject::GLFrameBufferObject(void)
 {
+	this->value = 0;
+	this->width = 0;
+	this->height = 0;
+	this->_hasDepth = false;
 }
 
 GLFrameBufferObject::~GLFrameBufferObject(void)
@@ -30,29 +38,29 @@ void GLFrameBufferObject::createFrameBufferObject(GLuint width, GLuint height, b
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	//if (useEXT)
-	//{
-	//	if (_hasDepth)
-	//	{
-	//		/* Depth buffer */
-	//		glGenRenderbuffersEXT(1, &depthBuffer);
-	//		glBindRenderbufferEXT(GL_RENDERBUFFER, depthBuffer);
-	//		glRenderbufferStorageEXT(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, width, height);
-	//		glBindRenderbufferEXT(GL_RENDERBUFFER, 0);
-	//	}
+	if (useEXT)
+	{
+		if (_hasDepth)
+		{
+			/* Depth buffer */
+			glGenRenderbuffersEXT(1, &depthBuffer);
+			glBindRenderbufferEXT(GL_RENDERBUFFER, depthBuffer);
+			glRenderbufferStorageEXT(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, width, height);
+			glBindRenderbufferEXT(GL_RENDERBUFFER, 0);
+		}
 
-	//	/* Framebuffer to link everything together */
-	//	glGenFramebuffersEXT(1, &value);
-	//	glBindFramebufferEXT(GL_FRAMEBUFFER, value);
-	//	glFramebufferTexture2DEXT(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0);
-	//	if (hasDepth)
-	//	{
-	//		glFramebufferRenderbufferEXT(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthBuffer);
-	//	}
+		/* Framebuffer to link everything together */
+		glGenFramebuffersEXT(1, &value);
+		glBindFramebufferEXT(GL_FRAMEBUFFER, value);
+		glFramebufferTexture2DEXT(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0);
+		if (hasDepth)
+		{
+			glFramebufferRenderbufferEXT(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthBuffer);
+		}
 
-	//	glBindFramebufferEXT(GL_FRAMEBUFFER, 0);
-	//}
-	//else
+		glBindFramebufferEXT(GL_FRAMEBUFFER, 0);
+	}
+	else
 	{
 		if (_hasDepth)
 		{
@@ -86,13 +94,13 @@ void GLFrameBufferObject::resize(GLuint width, GLuint height, bool useEXT)
 
 	if (!_hasDepth) return;
 
-	/*if (useEXT)
+	if (useEXT)
 	{
 		glBindRenderbufferEXT(GL_RENDERBUFFER, depthBuffer);
 		glRenderbufferStorageEXT(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, width, height);
 		glBindRenderbufferEXT(GL_RENDERBUFFER, 0);
 	}
-	else*/
+	else
 	{
 		glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer);
 		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, width, height);

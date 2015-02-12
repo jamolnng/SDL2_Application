@@ -2,10 +2,6 @@
 #include <vector>
 #include <fstream>
 
-GLShader GLShader::d_shader = GLShader();
-GLuint GLShader::mvploc = 0;
-GLuint GLShader::texloc = 0;
-
 std::string read(std::string value)
 {
 	std::ifstream t(value);
@@ -13,12 +9,12 @@ std::string read(std::string value)
 	return str;
 }
 
-GLShader::GLShader() : _numAttributes(0), _programID(0), _vertexShaderID(0), _fragmentShaderID(0)
+GLShader::GLShader(void) : _numAttributes(0), _programID(0), _vertexShaderID(0), _fragmentShaderID(0)
 {
 }
 
 
-GLShader::~GLShader()
+GLShader::~GLShader(void)
 {
 }
 
@@ -82,7 +78,7 @@ void GLShader::compileShaders(const std::string& vertexShaderFilePath, const std
 	compileShader(fragmentShaderFilePath, _fragmentShaderID);
 }
 
-void GLShader::linkShaders()
+void GLShader::linkShaders(void)
 {
 	//Attach our shaders to our program
 	glAttachShader(_programID, _vertexShaderID);
@@ -134,7 +130,7 @@ GLuint GLShader::getUniformLocation(const std::string& uniformName)
 	GLint location = glGetUniformLocation(_programID, uniformName.c_str());
 	if (location == GL_INVALID_INDEX)
 	{
-		printf(std::string("Uniform " + uniformName + "not found in shader!\n").c_str());
+		printf(std::string("Uniform " + uniformName + " not found in shader!\n").c_str());
 	}
 
 	return location;
@@ -142,7 +138,7 @@ GLuint GLShader::getUniformLocation(const std::string& uniformName)
 
 
 //enable the shader, and all its attributes
-void GLShader::use()
+void GLShader::use(void)
 {
 	glUseProgram(_programID);
 	//enable all the attributes we added with addAttribute
@@ -152,7 +148,7 @@ void GLShader::use()
 }
 
 //disable the shader
-void GLShader::unuse()
+void GLShader::unuse(void)
 {
 	glUseProgram(0);
 	for (int i = 0; i < _numAttributes; i++) {
@@ -225,42 +221,6 @@ void GLShader::compileShader(const std::string& filePath, GLuint id)
 GLuint GLShader::getAttribLocation(const std::string& attribName)
 {
 	return glGetAttribLocation(_programID, attribName.c_str());
-}
-
-GLShader& GLShader::defaultShader(void)
-{
-	return d_shader;
-}
-
-void GLShader::compileDefaultShader(void)
-{
-	d_shader.compileShadersFromSource(
-		//Vertex
-		"#version 130\n"
-		"uniform mat4 mvp;\n"
-		"attribute vec3 position;\n"
-		"attribute vec2 texCoord;\n"
-		"varying vec2 aCoord;\n"
-		"void main()\n"
-		"{\n"
-		"aCoord = texCoord;\n"
-		"gl_Position = mvp * vec4(position,1.0);\n"
-		"}",
-		//Fragment
-		"#version 130\n"
-		"uniform sampler2D tex;\n"
-		"varying vec2 aCoord;\n"
-		"void main(void)\n"
-		"{\n"
-		"//gl_FragColor = vec4(1.0,0.5,0.25,1.0);\n"
-		"gl_FragColor = texture2D(tex,aCoord);\n"
-		"}"
-		);
-	d_shader.addAttribute("position");
-	d_shader.addAttribute("texCoord");
-	d_shader.linkShaders();
-	mvploc = d_shader.getUniformLocation("mvp");
-	texloc = d_shader.getUniformLocation("tex");
 }
 
 void GLShader::compileShadersFromSource(const std::string& vertexSource, const std::string& fragmentSource)
@@ -352,4 +312,9 @@ void GLShader::compileShadersFromSource(const std::string& vertexSource, const s
 		std::printf("%s\n", &(errorLog[0]));
 		printf(std::string("Shader \n\"" + fragmentSource + "\"\n failed to compile").c_str());
 	}
+}
+
+void GLShader::dispose(void)
+{
+	glDeleteProgram(_programID);
 }

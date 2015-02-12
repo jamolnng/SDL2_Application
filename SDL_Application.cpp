@@ -146,17 +146,11 @@ void SDL_Application::run(void)
 			activity->updateFixed();
 			updateNext += updateRate;
 		}
-#ifdef _DEBUG
-		if (updates > maxUpdates && (updateTime - updateNext) >= updateRate)
-		{
-			printf("The Program Can't Keep Up\n");
-		}
-#endif
 		activity->updateDynamic(deltaTime);
 
 		if (window.isUsingOpenGL())
 		{
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		}
 		else
 		{

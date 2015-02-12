@@ -2,6 +2,7 @@
 
 #include <string>
 #include <GL\glew.h>
+#include <map>
 
 class GLShader
 {
@@ -16,15 +17,11 @@ class GLShader
 		void compileShaders(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
 		void compileShaders(const std::string& shaderName);
 		void compileShadersFromSource(const std::string& vertexSource, const std::string& fragmentSource);
-		void linkShaders();
+		void linkShaders(void);
 		void addAttribute(const std::string& attributeName);
-		void use();
-		void unuse();
-
-		static GLShader& defaultShader(void);
-		static void compileDefaultShader(void);
-		static GLuint mvploc;
-		static GLuint texloc;
+		void use(void);
+		void unuse(void);
+		void dispose(void);
 
 	private:
 		void compileShader(const std::string& filepath, GLuint id);
@@ -33,6 +30,4 @@ class GLShader
 		GLuint _programID;
 		GLuint _vertexShaderID;
 		GLuint _fragmentShaderID;
-
-		static GLShader d_shader;
 };
