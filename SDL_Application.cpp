@@ -140,7 +140,7 @@ void SDL_Application::run(void)
 
 		if (maxUpdates != nextMaxUpdate) maxUpdates = nextMaxUpdate;
 
-		while ((updateTime - updateNext) >= updateRate && updates++ < maxUpdates)
+		while ((updateTime - updateNext) >= updateRate && updates++ < (int)maxUpdates)
 		{
 			//fixed update
 			activity->updateFixed();
