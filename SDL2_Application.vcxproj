@@ -41,10 +41,14 @@
     <ClInclude Include="LTexture.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Properties.pb.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SDL_Activity.h" />
     <ClInclude Include="SDL_Application.h" />
     <ClInclude Include="SDL_Application_Window.h" />
     <ClInclude Include="SDL_Utils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SDL2_Application.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D6C5CF1D-0060-4DFF-8995-47626FC5AB54}</ProjectGuid>

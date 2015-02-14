@@ -126,6 +126,7 @@ void SDL_Application::run(void)
 	int updateRate = (int)(1000.0f / 60.0f);
 	int deltaTime = 0;
 	int nextTime = updateNext;
+	int updates = 0;
 	while (running)
 	{
 		while (SDL_PollEvent(&e))
@@ -134,9 +135,7 @@ void SDL_Application::run(void)
 			window.handleEvent(e);
 			activity->preEvent(e);
 		}
-
-		int updates = 0;
-		updateTime = SDL_GetTicks();
+		updates = 0;
 
 		if (maxUpdates != nextMaxUpdate) maxUpdates = nextMaxUpdate;
 
@@ -145,6 +144,10 @@ void SDL_Application::run(void)
 			//fixed update
 			activity->updateFixed();
 			updateNext += updateRate;
+		}
+		if (updates >= (int)maxUpdates)
+		{
+			updateNext = updateTime;
 		}
 		activity->updateDynamic(deltaTime);
 
@@ -181,8 +184,9 @@ void SDL_Application::run(void)
 		}
 		activity->clear();
 
-		deltaTime = SDL_GetTicks() - nextTime;
-		nextTime = SDL_GetTicks();
+		updateTime = SDL_GetTicks();
+		deltaTime = updateTime - nextTime;
+		nextTime = updateTime;
 	}
 	activity->dispose();
 	exit = true;
