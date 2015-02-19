@@ -25,8 +25,8 @@ GLuint GLShader::getShader(void)
 
 void GLShader::compileShaders(const std::string& shaderName)
 {
-	std::string vertexShaderFilePath = "../data/shaders/vertex/" + shaderName + ".glsl";
-	std::string fragmentShaderFilePath = "../data/shaders/fragment/" + shaderName + ".glsl";
+	std::string vertexShaderFilePath = "../data/shaders/" + shaderName + ".vert";
+	std::string fragmentShaderFilePath = "../data/shaders/" + shaderName + ".frag";
 	//Vertex and fragment shaders are successfully compiled.
 	//Now time to link them together into a program.
 	//Get a program object.
