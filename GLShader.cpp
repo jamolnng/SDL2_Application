@@ -127,10 +127,22 @@ void GLShader::addAttribute(const std::string& attributeName)
 
 GLuint GLShader::getUniformLocation(const std::string& uniformName)
 {
-	GLint location = glGetUniformLocation(_programID, uniformName.c_str());
-	if (location == GL_INVALID_INDEX)
+	GLuint location = 0;
+	if (uniforms.find(uniformName) != uniforms.end())
 	{
-		printf(std::string("Uniform " + uniformName + " not found in shader!\n").c_str());
+		location = uniforms.find(uniformName)->second;
+	}
+	else
+	{
+		location = glGetUniformLocation(_programID, uniformName.c_str());
+		if (location == GL_INVALID_INDEX)
+		{
+			printf(std::string("Uniform " + uniformName + " not found in shader!\n").c_str());
+		}
+		else
+		{
+			uniforms.insert(std::pair<std::string, GLuint>(uniformName, location));
+		}
 	}
 
 	return location;
@@ -142,7 +154,8 @@ void GLShader::use(void)
 {
 	glUseProgram(_programID);
 	//enable all the attributes we added with addAttribute
-	for (int i = 0; i < _numAttributes; i++) {
+	for (int i = 0; i < _numAttributes; i++)
+	{
 		glEnableVertexAttribArray(i);
 	}
 }
@@ -151,7 +164,8 @@ void GLShader::use(void)
 void GLShader::unuse(void)
 {
 	glUseProgram(0);
-	for (int i = 0; i < _numAttributes; i++) {
+	for (int i = 0; i < _numAttributes; i++)
+	{
 		glDisableVertexAttribArray(i);
 	}
 
@@ -213,14 +227,9 @@ void GLShader::compileShader(const std::string& filePath, GLuint id)
 
 		//Print error log and quit
 		std::printf("%s\n", &(errorLog[0]));
-		printf(std::string("Shader " + filePath + " failed to compile").c_str());
+		printf(std::string("Shader " + filePath + " failed to compile.\n").c_str());
 	}
 
-}
-
-GLuint GLShader::getAttribLocation(const std::string& attribName)
-{
-	return glGetAttribLocation(_programID, attribName.c_str());
 }
 
 void GLShader::compileShadersFromSource(const std::string& vertexSource, const std::string& fragmentSource)
@@ -317,4 +326,9 @@ void GLShader::compileShadersFromSource(const std::string& vertexSource, const s
 void GLShader::dispose(void)
 {
 	glDeleteProgram(_programID);
+	_numAttributes = 0;
+	_programID = 0;
+	_vertexShaderID = 0;
+	_fragmentShaderID = 0;
+	uniforms.clear();
 }

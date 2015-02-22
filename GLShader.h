@@ -7,11 +7,10 @@
 class GLShader
 {
 	public:
-		GLShader();
-		~GLShader();
+		GLShader(void);
+		~GLShader(void);
 
 		GLuint getUniformLocation(const std::string& uniformName);
-		GLuint getAttribLocation(const std::string& attribName);
 		GLuint getShader(void);
 
 		void compileShaders(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
@@ -30,4 +29,6 @@ class GLShader
 		GLuint _programID;
 		GLuint _vertexShaderID;
 		GLuint _fragmentShaderID;
+
+		std::map<std::string, GLuint> uniforms;
 };
