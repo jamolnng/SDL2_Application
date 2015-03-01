@@ -21,8 +21,18 @@ GLFrameBufferObject::~GLFrameBufferObject(void)
 {
 }
 
+std::vector<GLfloat> GLFrameBufferObject::getVertexArray(void)
+{
+	return vertexArray;
+}
+
 void GLFrameBufferObject::createFrameBufferObject(GLuint width, GLuint height, bool hasDepth, bool useEXT)
 {
+	vertexArray.clear();
+	vertexArray.push_back(0);
+	vertexArray.push_back(0);
+	vertexArray.push_back(width);
+	vertexArray.push_back(height);
 	if (value != 0) dispose();
 	this->width = width;
 	this->height = height;
@@ -88,6 +98,11 @@ void GLFrameBufferObject::resize(GLuint width, GLuint height, bool useEXT)
 {
 	this->width = width;
 	this->height = height;
+	vertexArray.clear();
+	vertexArray.push_back(0);
+	vertexArray.push_back(0);
+	vertexArray.push_back(width);
+	vertexArray.push_back(height);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
 	glBindTexture(GL_TEXTURE_2D, 0);

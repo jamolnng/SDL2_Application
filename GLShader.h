@@ -10,14 +10,14 @@ class GLShader
 		GLShader(void);
 		~GLShader(void);
 
-		GLuint getUniformLocation(const std::string& uniformName);
+		GLuint getUniformLocation(const std::string& uniformName, bool printError = false);
 		GLuint getShader(void);
 
 		void compileShaders(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
 		void compileShaders(const std::string& shaderName);
 		void compileShadersFromSource(const std::string& vertexSource, const std::string& fragmentSource);
 		void linkShaders(void);
-		void addAttribute(const std::string& attributeName);
+		void addAttribute(const std::string& attributeName, int num = -1);
 		void use(void);
 		void unuse(void);
 		void dispose(void);

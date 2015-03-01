@@ -4,6 +4,7 @@
 #include <GL\GL.h>
 #include <GL\GLU.h>
 #include "GLObject.h"
+#include <vector>
 
 class GLFrameBufferObject : public GLObject<GLuint>
 {
@@ -21,6 +22,8 @@ class GLFrameBufferObject : public GLObject<GLuint>
 		GLuint getDepthBuffer(void);
 		GLuint getWidth(void);
 		GLuint getHeight(void);
+
+		std::vector<GLfloat> getVertexArray(void);
 		
 		void dispose(void);
 
@@ -33,6 +36,7 @@ class GLFrameBufferObject : public GLObject<GLuint>
 	private:
 		GLuint texture, depthBuffer, width, height;
 		bool _hasDepth;
+		std::vector<GLfloat> vertexArray;
 };
 
 typedef GLFrameBufferObject GLfbo;

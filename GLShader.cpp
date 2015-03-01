@@ -96,8 +96,8 @@ void GLShader::linkShaders(void)
 		glGetProgramiv(_programID, GL_INFO_LOG_LENGTH, &maxLength);
 
 		//The maxLength includes the NULL character
-		//std::vector<char> errorLog1(maxLength);
-		//glGetProgramInfoLog(_programID, maxLength, &maxLength, &errorLog[0]);
+		std::vector<char> errorLog1(maxLength);
+		glGetProgramInfoLog(_programID, maxLength, &maxLength, &errorLog1[0]);
 
 
 
@@ -108,7 +108,7 @@ void GLShader::linkShaders(void)
 		glDeleteShader(_fragmentShaderID);
 
 		//print the error log and quit
-		//std::printf("%s\n", &(errorLog[0]));
+		std::printf("%s\n", &(errorLog1[0]));
 		printf("Shaders failed to link!\n");
 	}
 
@@ -120,12 +120,12 @@ void GLShader::linkShaders(void)
 }
 
 //Adds an attribute to our shader. SHould be called between compiling and linking.
-void GLShader::addAttribute(const std::string& attributeName)
+void GLShader::addAttribute(const std::string& attributeName, int num)
 {
-	glBindAttribLocation(_programID, _numAttributes++, attributeName.c_str());
+	glBindAttribLocation(_programID, num >= 0 ? num : _numAttributes++, attributeName.c_str());
 }
 
-GLuint GLShader::getUniformLocation(const std::string& uniformName)
+GLuint GLShader::getUniformLocation(const std::string& uniformName, bool printError)
 {
 	GLuint location = 0;
 	if (uniforms.find(uniformName) != uniforms.end())
@@ -135,7 +135,7 @@ GLuint GLShader::getUniformLocation(const std::string& uniformName)
 	else
 	{
 		location = glGetUniformLocation(_programID, uniformName.c_str());
-		if (location == GL_INVALID_INDEX)
+		if (location == GL_INVALID_INDEX && printError)
 		{
 			printf(std::string("Uniform " + uniformName + " not found in shader!\n").c_str());
 		}
