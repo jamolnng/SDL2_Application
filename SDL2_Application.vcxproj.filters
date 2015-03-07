@@ -81,6 +81,9 @@
     <ClCompile Include="Properties.pb.cc">
       <Filter>Source Files\R</Filter>
     </ClCompile>
+    <ClCompile Include="BooleanBitArray.cpp">
+      <Filter>Source Files\R</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LTexture.h">
@@ -127,6 +130,12 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BooleanBitArray.h">
+      <Filter>Header Files\R</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryPool.h">
+      <Filter>Header Files\R</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

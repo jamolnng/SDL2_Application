@@ -160,7 +160,7 @@ bool GLTexture::testPixel(unsigned int x, unsigned int y)
 bool GLTexture::createEmpty(unsigned int width, unsigned int height, int MIN_FILTER, int MAG_FILTER)
 {
 	glBindTexture(GL_TEXTURE_2D, value);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 768, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -178,6 +178,7 @@ GLuint GLTexture::load(const char* fileName, int MIN_FILTER, int MAG_FILTER)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, MIN_FILTER);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, MAG_FILTER);
 	glBindTexture(GL_TEXTURE_2D, 0);
+	SDL_FreeSurface(surface);
 	return out;
 }
 

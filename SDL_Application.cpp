@@ -39,6 +39,8 @@ bool SDL_Application::init(void)
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) return 0;
 	if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) return 0;
+	if (!SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1")) return 0;
+	if (!SDL_SetHint(SDL_HINT_FRAMEBUFFER_ACCELERATION, "1")) return 0;
 	return 1;
 }
 
@@ -72,7 +74,7 @@ bool SDL_Application::createWindow(char* title, unsigned int width, unsigned int
 		if ((error = glewInit()) != GLEW_OK)
 		{
 			fprintf(stderr, "Error: %s\n", glewGetErrorString(error));
-			system("pause");
+			system("PAUSE");
 			return 0;
 		}
 	}

@@ -15,6 +15,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BooleanBitArray.cpp" />
     <ClCompile Include="Crypto.cpp" />
     <ClCompile Include="GLFrameBufferObject.cpp" />
     <ClCompile Include="GLObject.cpp" />
@@ -31,6 +32,7 @@
     <ClCompile Include="SDL_Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BooleanBitArray.h" />
     <ClInclude Include="Crypto.h" />
     <ClInclude Include="GLFrameBufferObject.h" />
     <ClInclude Include="GLObject.h" />
@@ -39,6 +41,7 @@
     <ClInclude Include="GLVertexBufferObject.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="LTexture.h" />
+    <ClInclude Include="MemoryPool.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Properties.pb.h" />
     <ClInclude Include="resource.h" />
