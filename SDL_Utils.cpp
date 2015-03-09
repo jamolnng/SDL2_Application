@@ -115,3 +115,28 @@ int SDL_Utils::rand(void)
 	srand((std::time(0) % std::rand()) * std::rand());
 	return abs(std::rand());
 }
+
+string SDL_Utils::getDateTimeNow(void)
+{
+	std::time_t now = time(0);
+	std::tm *local = localtime(&now);
+	string rtime;
+	string d = to_string(local->tm_mday);
+	string m = to_string(1 + local->tm_mon);
+	string y = to_string(1900 + local->tm_year);
+
+	if (d.length() < 2) d = "0" + d;
+	if (m.length() < 2) m = "0" + m;
+
+	string hh = to_string(local->tm_hour);
+	string mm = to_string(local->tm_min);
+	string ss = to_string(local->tm_sec);
+
+	if (hh.length() < 2) hh = "0" + hh;
+	if (mm.length() < 2) mm = "0" + mm;
+	if (ss.length() < 2) ss = "0" + ss;
+
+	rtime.append(y).append("-").append(m).append("-").append(d).append("_");
+	rtime.append(hh).append(".").append(mm).append(".").append(ss);
+	return rtime;
+}

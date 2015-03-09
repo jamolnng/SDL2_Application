@@ -37,10 +37,34 @@ void SDL_Application::setExitCode(int newExitCode)
 
 bool SDL_Application::init(void)
 {
-	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) return 0;
-	if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1")) return 0;
-	if (!SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1")) return 0;
-	if (!SDL_SetHint(SDL_HINT_FRAMEBUFFER_ACCELERATION, "1")) return 0;
+	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+	{
+		std::string err("Could not initialize SDL @ ");
+		err.append(__FILE__).append(" ").append(std::to_string(__LINE__));
+		logger.fatal(err.c_str());
+		return 0;
+	}
+	if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
+	{
+		std::string err("Could not set render hint \"Scale Quality\" SDL @ ");
+		err.append(__FILE__).append(" ").append(std::to_string(__LINE__));
+		logger.fatal(err.c_str());
+		return 0;
+	}
+	if (!SDL_SetHint(SDL_HINT_RENDER_VSYNC, "1"))
+	{
+		std::string err("Could not set render hint \"Vertical Sync\" SDL @ ");
+		err.append(__FILE__).append(" ").append(std::to_string(__LINE__));
+		logger.fatal(err.c_str());
+		return 0;
+	}
+	if (!SDL_SetHint(SDL_HINT_FRAMEBUFFER_ACCELERATION, "1"))
+	{
+		std::string err("Could not set render hint \"Framebuffer Acceleration\" SDL @ ");
+		err.append(__FILE__).append(" ").append(std::to_string(__LINE__));
+		logger.fatal(err.c_str());
+		return 0;
+	}
 	return 1;
 }
 
@@ -56,11 +80,30 @@ bool SDL_Application::isExiting(void)
 
 bool SDL_Application::createWindow(char* title, unsigned int width, unsigned int height, Uint32 flags, char* iconFile)
 {
-	if (!window.init(activity, title, width, height, flags)) return 0;
+	if (!window.init(activity, title, width, height, flags))
+	{
+		std::string err("Could not initialize window @ ");
+		err.append(__FILE__).append(" ").append(std::to_string(__LINE__));
+		logger.fatal(err.c_str());
+		return 0;
+	}
 	renderer = window.getRenderer();
-	if (!window.isUsingOpenGL()) if (renderer == nullptr) return 0;
+	if (!window.isUsingOpenGL()) if (renderer == nullptr || renderer == NULL)
+	{
+		std::string err("Could not create renderer @ ");
+		err.append(__FILE__).append(" ").append(std::to_string(__LINE__));
+		logger.fatal(err.c_str());
+		return 0;
+	}
 	int imgFlags = IMG_INIT_PNG;
-	if (!(IMG_Init(imgFlags) & imgFlags)) return 0;
+	if (!(IMG_Init(imgFlags) & imgFlags))
+	{
+		std::string err("Could not initialize SDL_Image library: ");
+		err.append(IMG_GetError()).append(" @ ");
+		err.append(__FILE__).append(" ").append(std::to_string(__LINE__));
+		logger.fatal(err.c_str());
+		return 0;
+	}
 	window.setIcon(iconFile);
 	if (!window.isUsingOpenGL())
 	{
@@ -73,8 +116,7 @@ bool SDL_Application::createWindow(char* title, unsigned int width, unsigned int
 		GLenum error;
 		if ((error = glewInit()) != GLEW_OK)
 		{
-			fprintf(stderr, "Error: %s\n", glewGetErrorString(error));
-			system("PAUSE");
+			logger.fatal((std::string("GLEW initialization: ") + std::string(reinterpret_cast<const char*>(glewGetErrorString(error)))).c_str());
 			return 0;
 		}
 	}
@@ -90,7 +132,7 @@ int SDL_Application::getExitCode(void)
 
 int SDL_Application::finish(void)
 {
-	if (!exit) return -1;
+	logger.close();
 	if (!window.isUsingOpenGL()) SDL_DestroyRenderer(renderer);
 	window.dispose();
 	IMG_Quit();
@@ -106,12 +148,30 @@ SDL_Application_Window* SDL_Application::getWindow(void)
 
 SDL_Surface* SDL_Application::loadImage(char* fileName)
 {
-	if (fileName == "") return 0;
+	if (fileName == "" || fileName == NULL || fileName == nullptr)
+	{
+		std::string err("Cannot load image with a NULL file name @ ");
+		err.append(__FILE__).append(" ").append(std::to_string(__LINE__));
+		logger.warning(err.c_str());
+		return NULL;
+	}
 	SDL_Surface* optimizedSurface = nullptr;
 	SDL_Surface* loadedSurface = IMG_Load(fileName);
-	if( loadedSurface == nullptr ) return 0;
+	if (loadedSurface == nullptr)
+	{
+		std::string err("Could not load image @ ");
+		err.append(__FILE__).append(" ").append(std::to_string(__LINE__));
+		logger.error(err.c_str());
+		return NULL;
+	}
 	optimizedSurface = SDL_ConvertSurface(loadedSurface, SDL_GetWindowSurface(window.getWindow())->format, 0);
-	if (optimizedSurface == nullptr) return 0;
+	if (optimizedSurface == nullptr)
+	{
+		std::string err("Could not optimize image @ ");
+		err.append(__FILE__).append(" ").append(std::to_string(__LINE__));
+		logger.error(err.c_str());
+		return NULL;
+	}
 	SDL_FreeSurface( loadedSurface );
 	return optimizedSurface;
 }

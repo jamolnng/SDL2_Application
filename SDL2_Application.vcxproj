@@ -23,6 +23,7 @@
     <ClCompile Include="GLTexture.cpp" />
     <ClCompile Include="GLVertexBufferObject.cpp" />
     <ClCompile Include="Keyboard.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="LTexture.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Properties.pb.cc" />
@@ -40,6 +41,7 @@
     <ClInclude Include="GLTexture.h" />
     <ClInclude Include="GLVertexBufferObject.h" />
     <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="Logger.h" />
     <ClInclude Include="LTexture.h" />
     <ClInclude Include="MemoryPool.h" />
     <ClInclude Include="Mouse.h" />
@@ -99,7 +101,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_SCL_SECURE_NO_WARNINGS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\Users\Jesse\Documents\C++\Libraries\ProtoBuf\protobuf-2.6.1\vsprojects\include;C:\Users\Jesse\Documents\C++\Libraries\Crypto++;C:\Users\Jesse\Documents\C++\Libraries\SDL2_image-2.0.0\include;C:\Users\Jesse\Documents\C++\Libraries\SDL-2.0\include;C:\Users\Jesse\Documents\C++\Libraries\glm;C:\Users\Jesse\Documents\C++\Libraries\glew-1.10.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -119,7 +121,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_SCL_SECURE_NO_WARNINGS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\Users\Jesse\Documents\C++\Libraries\ProtoBuf\protobuf-2.6.1\vsprojects\include;C:\Users\Jesse\Documents\C++\Libraries\Crypto++;C:\Users\Jesse\Documents\C++\Libraries\SDL2_image-2.0.0\include;C:\Users\Jesse\Documents\C++\Libraries\SDL-2.0\include;C:\Users\Jesse\Documents\C++\Libraries\glm;C:\Users\Jesse\Documents\C++\Libraries\glew-1.10.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -141,7 +143,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;_SCL_SECURE_NO_WARNINGS;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>C:\Users\Jesse\Documents\C++\Libraries\ProtoBuf\protobuf-2.6.1\vsprojects\include;C:\Users\Jesse\Documents\C++\Libraries\Crypto++;C:\Users\Jesse\Documents\C++\Libraries\SDL2_image-2.0.0\include;C:\Users\Jesse\Documents\C++\Libraries\SDL-2.0\include;C:\Users\Jesse\Documents\C++\Libraries\glm;C:\Users\Jesse\Documents\C++\Libraries\glew-1.10.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <SDL_image.h>
 #include <string>
+#include "Logger.h"
 
 LTexture::LTexture(SDL_Renderer* r)
 {
@@ -32,7 +33,8 @@ bool LTexture::loadFromFile(char* path)
 	SDL_Surface* loadedSurface = IMG_Load(path);
 	if (loadedSurface == nullptr)
 	{
-		printf("Unable to load image %s! SDL_image Error: %s\n", path, IMG_GetError());
+		std::string err = "Unable to load image " + std::string(path) + "! SDL_image Error:" + std::string(IMG_GetError());
+		logger.error(err.c_str());
 	}
 	else
 	{
@@ -40,7 +42,8 @@ bool LTexture::loadFromFile(char* path)
 		SDL_Surface* formattedSurface = SDL_ConvertSurfaceFormat(loadedSurface, SDL_PIXELFORMAT_RGBA8888, 0);
 		if (formattedSurface == nullptr)
 		{
-			printf("Unable to convert loaded surface to display format! %s\n", SDL_GetError());
+			std::string err = "Unable to convert loaded surface to display format! " + std::string(SDL_GetError());
+			logger.error(err.c_str());
 		}
 		else
 		{
@@ -48,7 +51,8 @@ bool LTexture::loadFromFile(char* path)
 			newTexture = SDL_CreateTexture(gRenderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, formattedSurface->w, formattedSurface->h);
 			if (newTexture == nullptr)
 			{
-				printf("Unable to create blank texture! SDL Error: %s\n", SDL_GetError());
+				std::string err = "Unable to create blank texture! " + std::string(SDL_GetError());
+				logger.error(err.c_str());
 			}
 			else
 			{
@@ -114,7 +118,8 @@ bool LTexture::loadFromRenderedText(std::string textureText, SDL_Color textColor
 		mTexture = SDL_CreateTextureFromSurface(gRenderer, textSurface);
 		if (mTexture == nullptr)
 		{
-			printf("Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError());
+			std::string err = "Unable to create texture from rendered text!! SDL_ttf Error: " + std::string(SDL_GetError());
+			logger.error(err.c_str());
 		}
 		else
 		{
@@ -128,7 +133,8 @@ bool LTexture::loadFromRenderedText(std::string textureText, SDL_Color textColor
 	}
 	else
 	{
-		printf("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
+		std::string err = "Unable to render text surface! SDL_ttf Error: " + std::string(TTF_GetError());
+		logger.error(err.c_str());
 	}
 
 
@@ -143,7 +149,8 @@ bool LTexture::createBlank(int width, int height, SDL_TextureAccess access)
 	mTexture = SDL_CreateTexture(gRenderer, SDL_PIXELFORMAT_RGBA8888, access, width, height);
 	if (mTexture == nullptr)
 	{
-		printf("Unable to create blank texture! SDL Error: %s\n", SDL_GetError());
+		std::string err = "Unable to create blank texture! " + std::string(SDL_GetError());
+		logger.error(err.c_str());
 	}
 	else
 	{
@@ -225,7 +232,7 @@ bool LTexture::lockTexture()
 	//Texture is already locked
 	if (mPixels != nullptr)
 	{
-		printf("Texture is already locked!\n");
+		logger.warning("Texture is already locked!");
 		success = false;
 	}
 	//Lock texture
@@ -233,7 +240,8 @@ bool LTexture::lockTexture()
 	{
 		if (SDL_LockTexture(mTexture, nullptr, &mPixels, &mPitch) != 0)
 		{
-			printf("Unable to lock texture! %s\n", SDL_GetError());
+			std::string err = "Unable to lock texture! " + std::string(SDL_GetError());
+			logger.error(err.c_str());
 			success = false;
 		}
 	}
@@ -248,7 +256,8 @@ bool LTexture::unlockTexture()
 	//Texture is not locked
 	if (mPixels == nullptr)
 	{
-		printf("Texture is not locked!\n");
+		std::string err = "Texture is not locked";
+		logger.error(err.c_str());
 		success = false;
 	}
 	//Unlock texture

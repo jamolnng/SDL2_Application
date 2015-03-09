@@ -3,6 +3,7 @@
 #include <SDL_image.h>
 #include "SDL_Activity.h"
 #include <iostream>
+#include "Logger.h"
 
 SDL_Application_Window::SDL_Application_Window(bool useOpenGL, unsigned int openGLMajor, unsigned int openGLMinor)
 {
@@ -37,7 +38,7 @@ bool SDL_Application_Window::initWithOpenGL(SDL_Activity* activity, Uint32 flags
 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
-	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
+	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 	SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 32);
 	SDL_GL_SetAttribute(SDL_GL_ACCUM_RED_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_ACCUM_GREEN_SIZE, 8);
@@ -52,8 +53,9 @@ bool SDL_Application_Window::initWithOpenGL(SDL_Activity* activity, Uint32 flags
 	sdl_window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | flags);
 	if (sdl_window == 0)
 	{
-		fprintf(stderr, "Couldn't create window: %s\n", SDL_GetError());
-		system("PAUSE");
+		std::string err("Could not create OpenGL window: ");
+		err.append(string(SDL_GetError())).append(" @ ").append(__FILE__).append(" ").append(std::to_string(__LINE__));
+		logger.fatal(err.c_str());
 		width = 0;
 		height = 0;
 		return 0;
@@ -73,14 +75,16 @@ bool SDL_Application_Window::initWithOpenGL(SDL_Activity* activity, Uint32 flags
 			}
 			else
 			{
-				fprintf(stderr, "Couldn't set swap interval: %s\n", SDL_GetError());
-				system("PAUSE");
+				std::string err("Could not set swap interval: ");
+				err.append(string(SDL_GetError())).append(" @ ").append(__FILE__).append(" ").append(std::to_string(__LINE__));
+				logger.fatal(err.c_str());
 			}
 		}
 		else
 		{
-			fprintf(stderr, "Couldn't create context: %s\n", SDL_GetError());
-			system("PAUSE");
+			std::string err("Could not create context: ");
+			err.append(string(SDL_GetError())).append(" @ ").append(__FILE__).append(" ").append(std::to_string(__LINE__));
+			logger.fatal(err.c_str());
 		}
 	}
 	return 0;
@@ -99,6 +103,9 @@ bool SDL_Application_Window::initWithoutOpenGL(SDL_Activity* activity, Uint32 fl
 	}
 	else
 	{
+		std::string err("Could not create window: ");
+		err.append(string(SDL_GetError())).append(" @ ").append(__FILE__).append(" ").append(std::to_string(__LINE__));
+		logger.fatal(err.c_str());
 		width = 0;
 		height = 0;
 	}
@@ -178,6 +185,11 @@ void SDL_Application_Window::handleEvent(SDL_Event& e)
 
 void SDL_Application_Window::dispose(void)
 {
+	if (isUsingOpenGL())
+	{
+		SDL_GL_DeleteContext(gl_context);
+	}
+
 	if (sdl_window != 0)
 	{
 		SDL_DestroyWindow(sdl_window);

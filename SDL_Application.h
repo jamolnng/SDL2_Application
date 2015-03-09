@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include "SDL_Application_Window.h"
 #include "Crypto.h"
+#include "Logger.h"
 
 class SDL_Activity;
 

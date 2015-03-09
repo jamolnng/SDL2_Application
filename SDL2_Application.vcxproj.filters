@@ -84,6 +84,9 @@
     <ClCompile Include="BooleanBitArray.cpp">
       <Filter>Source Files\R</Filter>
     </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Source Files\R</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LTexture.h">
@@ -135,6 +138,9 @@
       <Filter>Header Files\R</Filter>
     </ClInclude>
     <ClInclude Include="MemoryPool.h">
+      <Filter>Header Files\R</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
       <Filter>Header Files\R</Filter>
     </ClInclude>
   </ItemGroup>

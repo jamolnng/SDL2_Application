@@ -26,4 +26,8 @@ class SDL_Utils
 		static string toLower(string&);
 		static bool endsWith(string& fullString, string& ending);
 		static int rand(void);
+		/*
+		 Returns current date and time (YYYY-mm-dd_hh.mm.ss)
+		*/
+		static string getDateTimeNow(void);
 };

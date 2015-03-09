@@ -1,6 +1,7 @@
 #include "GLShader.h"
 #include <vector>
 #include <fstream>
+#include "Logger.h"
 
 std::string read(std::string value)
 {
@@ -36,14 +37,14 @@ void GLShader::compileShaders(const std::string& shaderName)
 	_vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 	if (_vertexShaderID == 0)
 	{
-		printf("Vertex shader failed to be created!\n");
+		logger.error("Vertex shader failed to be created!");
 	}
 
 	//Create the fragment shader object, and store its ID
 	_fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
 	if (_fragmentShaderID == 0)
 	{
-		printf("Fragment shader failed to be created!\n");
+		logger.error("Fragment shader failed to be created!");
 	}
 
 	//Compile each shader
@@ -63,14 +64,14 @@ void GLShader::compileShaders(const std::string& vertexShaderFilePath, const std
 	_vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 	if (_vertexShaderID == 0)
 	{
-		printf("Vertex shader failed to be created!\n");
+		logger.error("Vertex shader failed to be created!");
 	}
 
 	//Create the fragment shader object, and store its ID
 	_fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
 	if (_fragmentShaderID == 0)
 	{
-		printf("Fragment shader failed to be created!\n");
+		logger.error("Fragment shader failed to be created!");
 	}
 
 	//Compile each shader
@@ -108,8 +109,8 @@ void GLShader::linkShaders(void)
 		glDeleteShader(_fragmentShaderID);
 
 		//print the error log and quit
-		std::printf("%s\n", &(errorLog1[0]));
-		printf("Shaders failed to link!\n");
+		logger.error("Shaders failed to link!");
+		logger.error(&(errorLog1[0]));
 	}
 
 	//Always detach shaders after a successful link.
@@ -137,7 +138,7 @@ GLuint GLShader::getUniformLocation(const std::string& uniformName, bool printEr
 		location = glGetUniformLocation(_programID, uniformName.c_str());
 		if (location == GL_INVALID_INDEX && printError)
 		{
-			printf(std::string("Uniform " + uniformName + " not found in shader!\n").c_str());
+			logger.error(std::string("Uniform " + uniformName + " not found in shader!\n").c_str());
 		}
 		else
 		{
@@ -163,7 +164,7 @@ void GLShader::use(void)
 //disable the shader
 void GLShader::unuse(void)
 {
-	glUseProgram(0);
+	//glUseProgram(0);
 	for (int i = 0; i < _numAttributes; i++)
 	{
 		glDisableVertexAttribArray(i);
@@ -226,8 +227,8 @@ void GLShader::compileShader(const std::string& filePath, GLuint id)
 		glDeleteShader(id); //Don't leak the shader.
 
 		//Print error log and quit
-		std::printf("%s\n", &(errorLog[0]));
-		printf(std::string("Shader " + filePath + " failed to compile.\n").c_str());
+		logger.error(std::string("Shader " + filePath + " failed to compile.\n").c_str());
+		logger.error(&(errorLog[0]));
 	}
 
 }
@@ -243,14 +244,14 @@ void GLShader::compileShadersFromSource(const std::string& vertexSource, const s
 	_vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 	if (_vertexShaderID == 0)
 	{
-		printf("Vertex shader failed to be created!\n");
+		logger.error("Vertex shader failed to be created!");
 	}
 
 	//Create the fragment shader object, and store its ID
 	_fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
 	if (_fragmentShaderID == 0)
 	{
-		printf("Fragment shader failed to be created!\n");
+		logger.error("Fragment shader failed to be created!");
 	}
 
 	GLuint id = _vertexShaderID;
@@ -284,8 +285,8 @@ void GLShader::compileShadersFromSource(const std::string& vertexSource, const s
 		glDeleteShader(id); //Don't leak the shader.
 
 		//Print error log and quit
-		std::printf("%s\n", &(errorLog[0]));
-		printf(std::string("Shader \n\"" + vertexSource + "\"\n failed to compile").c_str());
+		logger.error(std::string("Vertex Shader \n\"" + vertexSource + "\"\n failed to compile").c_str());
+		logger.error(&(errorLog[0]));
 	}
 
 	id = _fragmentShaderID;
@@ -318,8 +319,8 @@ void GLShader::compileShadersFromSource(const std::string& vertexSource, const s
 		glDeleteShader(id); //Don't leak the shader.
 
 		//Print error log and quit
-		std::printf("%s\n", &(errorLog[0]));
-		printf(std::string("Shader \n\"" + fragmentSource + "\"\n failed to compile").c_str());
+		logger.error(std::string("Fragment Shader \n\"" + fragmentSource + "\"\n failed to compile").c_str());
+		logger.error(&(errorLog[0]));
 	}
 }
 
