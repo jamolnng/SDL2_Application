@@ -12,6 +12,8 @@ Some things this library includes:
 - Full classes for OpenGL texutures, shaders, vertexbuffer objects, and framebuffer objects (more to come)
 - Full classes for SDL textures
 - A interface class to run your game through (SDL_Activity)
+- Cryptography
+- Google Protocol Buffer support and prebuilt properties file
 
 Here is a
 
