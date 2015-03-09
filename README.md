@@ -3,7 +3,7 @@ SDL2_Application
 
 SDL2 Application is a small, easy to use, library for SDL2, SDL2_image, and gl3w. The library focuses mostly around OpenGL.
 
-Dependencies for this library are: SDL2, SDL2_image, glew, Crypto++, and GLM
+Dependencies for this library are: [SDL2](http://www.libsdl.org/download-2.0.php), [SDL2_image](https://www.libsdl.org/projects/SDL_image/), [glew](http://glew.sourceforge.net/), [Crypto++](http://cryptopp.com/), and [GLM](http://glm.g-truc.net/0.9.6/index.html), and [Google's Protocol Buffer library](https://github.com/google/protobuf/)
 
 Some things this library includes:
 - Window handling and the option to use OpenGL rendering over SDL rendering
@@ -15,7 +15,7 @@ Some things this library includes:
 
 Here is a
 
-full working example application that uses Box2D https://github.com/jamolnng/Open-Source/tree/master/SDL_App_Box2D_Test
+Working example application https://github.com/jamolnng/GravityBoost/
 
 and an
 
