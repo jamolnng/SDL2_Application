@@ -157,7 +157,7 @@ void GLShader::use(void)
 	//enable all the attributes we added with addAttribute
 	for (int i = 0; i < _numAttributes; i++)
 	{
-		glEnableVertexAttribArray(i);
+		//glEnableVertexAttribArray(i);
 	}
 }
 
@@ -167,7 +167,7 @@ void GLShader::unuse(void)
 	//glUseProgram(0);
 	for (int i = 0; i < _numAttributes; i++)
 	{
-		glDisableVertexAttribArray(i);
+		//glDisableVertexAttribArray(i);
 	}
 
 }
